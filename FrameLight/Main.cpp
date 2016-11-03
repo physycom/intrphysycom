@@ -2,6 +2,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #endif
+#ifdef __CYGWIN__ 
+#include <windef.h> 
+#endif 
 
 #include "Frame_1.h"
 #include "form.h"

@@ -1,6 +1,4 @@
 #include "Frame_1.h"
-#include <FL/gl.h>
-#include <GL/glu.h>
 #include <cmath>
 #include <cstdio>
 #include <cstring>

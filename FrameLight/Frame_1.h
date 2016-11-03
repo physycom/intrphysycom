@@ -4,6 +4,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #endif
+#ifdef __CYGWIN__ 
+#include <windef.h> 
+#endif 
 
 #include <FL/Fl.H>
 #include <FL/Fl_Gl_Window.H>
