@@ -1,7 +1,6 @@
 #pragma once
 
 #ifdef _WIN32
-#define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #endif
 #ifdef __CYGWIN__ 
@@ -11,7 +10,11 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Gl_Window.H>
 #include <FL/gl.h>
+#ifdef __APPLE__
+#include <OpenGL/glu.h>
+#else
 #include <GL/glu.h>
+#endif
 
 class Frame_1 : public Fl_Gl_Window {
   int handle(int);

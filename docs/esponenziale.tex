@@ -1,0 +1,156 @@
+\documentclass[11pt,a4paper,twoside]{book}
+\usepackage[italian]{babel}
+\usepackage[left=2.5cm,top=3.5cm,bottom=3cm,right=2.5cm,nohead,nofoot]{geometry}
+\begin{document}
+\pagestyle{empty}
+\parindent 0pt
+%\hsize = 15.0 truecm
+%\large
+{\bf  \begin{center}
+  {\large \bf Esempio 1: esponenziale $ \dot{x}=x $  }        \end{center} }
+%\input colori
+
+
+Si considera una funzione nota $ \dot{x}=x $,con $x_0$ condizione
+iniziale al tempo $t = 0$:
+
+\begin{displaymath}
+\left\{  \begin{array}{ll}
+    \dot{x}=x & \hbox{equazione differenzioale} \\
+     x(0)=x_0 & \hbox{condizione iniziale}
+  \end{array}
+\right.
+\end{displaymath}
+
+
+
+Sappiamo che la soluzione generale di questa equazione differenziale
+\'e $ x(t)= x_0 e^t $, ma si vuole ora ricavarla utilizzando due
+metodi matematici differenti:
+
+\vskip 1.5 truecm
+
+\textbf{Metodo di Eulero - schema del primo ordine.}
+
+Si approssima la derivata della funzione con il rapporto
+incrementale $\dot{f}=(f(t+\Delta)-f(t))/\Delta$ cos\'i che $f(t+
+\Delta)=f(t)+\dot{f}\Delta$. Qunidi si avr\'a:
+
+$$ f(x,t)=\frac{x(t+\Delta)-x(t)}{\Delta}=\dot{x}+O(\Delta)$$
+
+Quando, come in questo caso, il tempo \'e discretizzato (cio\'e
+$t=n\Delta $),si ottiene un'equazione alle differenze:
+
+$$x(t_n+1)-x(t_n)= f(x(t_n),t_n)\Delta$$
+
+Poich\'e compare solo una differenza di primo livello (cio\'e due
+livelli temporali successivi n e n+1) questa \'e un'equazione alle
+differenze del primo ordine. In generale, l'ordine delle equazioni
+\'e pari al numero di livelli meno uno. Ora, applicando il metodo di
+Eulero all'equazione considerata, si ottiene:
+
+
+\begin{itemize}
+  \item Equazione differenziale:  $ x=\dot{x}=(x_{i+1}-x_i)/\Delta $
+  \item Approssimazione discreta: $ x_{i+1}-x_i= x_i \Delta $
+  \item Equazione alle differenze: $ x_{i+1}= (1+\Delta)x_i $
+\end{itemize}
+
+
+Partendo dalla condizione iniziale $x=x_0$, e iterando si ottiene:
+
+\begin{displaymath}
+\left\{
+  \begin{array}{ll}
+    x_1= (1+\Delta)x_0 & \hbox{} \\
+    x_2= (1+\Delta)x_1=(1+\Delta)^2x_0 & \hbox{} \\
+    ... & \hbox{} \\
+    x_n= (1+\Delta)^n x_0 & \hbox{}
+  \end{array}
+\right.
+\end{displaymath}
+
+
+Dove $x_n=x(t_n)$. In questo modo, integrando l'equazione alle
+differenze, si è ricavata la soluzione approssimata
+$x_n=x_0(1+\Delta)^n $ dopo un numero n di passi (ovvero al tempo
+$t_n=n\Delta$). Ricordando che lo sviluppo del fattoriale \'e
+$e^\Delta = 1+\Delta+\Delta^2/2 +..+\Delta^n/n!$, la soluzione può
+essere riscritta come:
+
+$$x_n=(1+\Delta)^n=(1+ 1/n)^n\simeq e+ O(1/n)^2$$
+
+dove $\Delta=1/n$.
+
+
+\vskip 2.5 truecm
+
+
+\textbf{Metodo centrato - schema del secondo ordine.}
+
+Si vuole approssimare meglio la derivata per riuscire ad ottenere
+una soluzione con degli errori pi\'u piccoli che nel caso
+precedente. Col metodo di Eulero la derivata veniva approssimata col
+rapporto incrementale, come segue:
+
+
+$$\dot{x}=\frac{x(t+\Delta)-x(t)}{\Delta}+O(\Delta)=\frac{x_{i+1}-x_i}{\Delta}+O(\Delta)$$
+
+Nel metodo centrato si approssima, invece, la derivata, nella
+maniera seguente:
+
+$$\dot{x}=\frac{x(t+\Delta)-x(t-\Delta)}{2\Delta}+O(\Delta^2)=\frac{x_{i+1}-x_{i-1}}{2\Delta}+O(\Delta^2)$$
+
+Ovviamente con questa nuova approssimazione discreta si ottiene
+un'equazione alle differenze del secondo ordine:
+
+$$ \dot{x}={x_{i+1}-x_{i-1}\over{2\Delta}}$$
+
+$$   x_{i+1}-x_{i-1}= 2\Delta x_i  $$
+
+Con questo schema centrato ho ottenuto una equazione alle differenze
+del secondo ordine e per poterla risolvere sono necessarie due
+condizioni iniziali. Questa equazione ha due soluzioni indipendenti
+di cui una approssima la nostra soluzione mentre l'altra, detta
+spuria, \'e una conseguenza dell'aumento dell'ordine e non ha
+controparte nel problema iniziale. Ora si vogliono calcolare queste
+soluzioni.
+
+\vskip 0.3 truecm
+
+\textbf{Nota}: un'equazione $\ddot{x}+a\dot{x}+bx+c=0$ si dice a
+coefficienti costanti se $a$ e $b$ non dipendono dal tempo. Il
+termine $c$ pu\'o dipendere dal tempo. \vskip 0.3 truecm
+\textbf{Teorema}: data un'equazione differenziale di ordine n a
+coefficienti costanti, le sue soluzioni si possono scrivere come:
+
+$$x(t)=\sum A_{n} e^{nt\lambda} $$
+con $ \lambda_n\neq\lambda_m$. Assumendo $x_i=p^i$ si ottiene:
+
+$$   p^2 -2\Delta p -1 =0  $$
+
+$$ p_1 = \Delta +\sqrt{\Delta^2+1} \approx \Delta +( 1+\Delta^2/2 ) = 1+ \Delta +\Delta^2/2 $$
+$$ p_2 = \Delta -\sqrt{\Delta^2+1} \approx \Delta -( 1+\Delta^2/2 ) =-1+ \Delta -\Delta^2/2 $$
+
+La soluzione cercata sar\'a data da $x_n=A(p_1)^n+B(p_2)^n$ dove
+$A(p_1)^n$ \'e un'approssimazione del secondo ordine mentre
+$B(p_2)^n$ \'e errata ed occorrer\'a eliminarla annullando la
+costante B. Si osserva inoltre che la soluzione spuria cambia segno
+ad ogni passo, $(p_2)^n \approx (-1)^n $.
+
+Per far partire questo schema sono necessarie le condizioni iniziali
+$x_0$ e $x_1$, ed \'e la scelta di $x_1$ che determina l'ampiezza
+della soluzione spuria.
+
+$$ x_1 \simeq x_0 + \dot{x}_0 \Delta + \ddot{x}_0 \Delta^2/2 = ( 1+ \Delta + \Delta^2/2 ) x_0 $$
+
+\begin{displaymath}
+x_0=A+B\qquad  x_1=Ap_1+Bp_2
+\end{displaymath}
+
+\begin{displaymath}
+ B = {x_1-p_1 x_0 \over p_2-p_1} \qquad A = x_0+{x_1-p_1 x_0 \over p_2-p_1}
+\end{displaymath}
+\end{document}
+
+%\bye

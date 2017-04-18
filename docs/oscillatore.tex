@@ -1,0 +1,132 @@
+\documentclass[11pt,a4paper,twoside]{book}
+\usepackage[italian]{babel}
+\usepackage[left=2.5cm,top=3.5cm,bottom=3cm,right=2.5cm,nohead,nofoot]{geometry}
+\begin{document}
+\pagestyle{empty}
+\parindent 0pt
+
+{\bf  \begin{center}
+  {\large \bf Esempio 2: equazione del moto armonico $ \ddot{x}+x=0 $  }        \end{center} }
+
+\vskip 0.5 truecm \textbf{Metodo 1: Schema centrato del secondo
+ordine.}\vskip 0.1 truecm L'equazione differenziale \'e del secondo
+ordine e pu\'o essere risolta approssimandola con il metodo
+centrato, come segue:
+
+$$ x_{i+1}-2x_i+x_{i-1} +x_i\Delta^2=0 $$
+
+Per far partire questo schema \'e necessario conoscere le due
+condizioni iniziali $x_0$ ed $x_1$. La prima rappresenta il valore
+della variabile x al tempo $t=0$, mentre la seconda pu\'o essere
+cos\'i calcolata:
+
+$$ x_1=x_0+ \dot{x}_0 \Delta + \ddot{x}_0 \Delta^2/2 $$
+$$ x_1= x(0)(1-\Delta^2/2)+v(0)\Delta $$
+
+L'equazione differenziale di partenza equivale ora a risolvere il
+seguente sistema:
+\begin{displaymath}
+\left\{
+  \begin{array}{ll}
+    x_0=x(0), & \hbox{} \\
+    x_1= x(0)(1-\Delta^2/2)+v(0)\Delta, & \hbox{} \\
+    x_{i+2}= 2(1-\Delta^2/2)x_{i+1}-x_i, & \hbox{}
+  \end{array}
+\right. \end{displaymath}
+
+Per risolvere l'equazione alle differenze, si assume $ v_i=p^i $
+
+$$ p^2-2(1-\Delta^2/2)p+1=0 $$
+
+$$ p= (1-\Delta^2/2)\pm i\Delta (1-\Delta^2/4)^{1/2} $$
+
+$$ |p|^2 = (1-\Delta^2/2)^2 + \Delta^2-\Delta^4/4 = 1 $$
+
+ questo assicura che la soluzione non cresce ne decade.
+
+
+\vskip 1.0 truecm \textbf{Metodo 2: Schema Runge Kutta  del secondo
+ordine. } \vskip 0.1 truecm In questo caso, l'equazione
+differenziale di partenza (che era del secondo ordine) viene
+riscritta come un sistema di due equazioni differenziali del primo
+ordine:
+\begin{displaymath}
+\left\{
+  \begin{array}{ll}
+    \dot{x}=+v, & \hbox{} \\
+    \dot{v}=-x, & \hbox{}
+  \end{array}
+\right. \end{displaymath}
+
+
+
+Un passo temporale $\Delta$ \'e composto di due sotto passi:
+$$ \hat{x}=x+v\Delta/2 $$
+$$ \hat{v}=v-x\Delta/2 $$
+
+$$ x=x+\hat{v}\Delta $$
+$$ v=v-\hat{x}\Delta $$
+
+eliminando le variabili intermedie si ottiene:
+
+$$ x_{i+1}=x_i(1-\Delta^2/2)+v_i\Delta $$
+$$ v_{i+1}=v_i(1-\Delta^2/2)-x_i\Delta $$
+
+$$ x_{i+2}-2(1-\Delta^2/2)x_{i+1} +(1+\Delta^4/4)x_i=0 $$
+
+Per risolvere l'equazione alle differenze, si assume $ v_i=p^i $:
+
+$$ p^2-2(1-\Delta^2/2)p+(1+\Delta^4/4)=0 $$
+
+$$ p= (1-\Delta^2/2)\pm i\Delta $$
+$$ |p|^2 = (1+\Delta^4/4) > 1 $$
+
+questo dimostra che la nostra soluzione lentamente cresce.
+
+\vskip 1.0 truecm
+
+\textbf{Metodo 3: Schema simplettico del secondo ordine. } \vskip
+0.1 truecm Anche in questo caso la funzione di partenza equivale a:
+\begin{displaymath} \left\{
+  \begin{array}{ll}
+    \dot{x}=+v, & \hbox{} \\
+    \dot{v}=-x, & \hbox{}
+  \end{array}
+\right. \end{displaymath}
+
+
+
+Un passo temporale $\Delta$ , per\'o, questa volta \'e composto di
+tre sotto passi:
+$$ x=x+\dot{x}\Delta/2=x+v\Delta/2 $$
+$$ v=v+\dot{v}\Delta=v-x\Delta $$
+$$ x=x+\dot{x}\Delta/2=x+v\Delta/2 $$
+
+
+% $$ \hat{x}=x+v\Delta/2 $$
+% $$ v=v-\hat{x}\Delta $$
+% $$ x=x+v\Delta/2 $$
+
+$$ x_{i+0.5}=x_i+v_i\Delta/2 $$
+$$ v_{i+1}=v_i-x_{i+0.5}\Delta $$
+$$ x_{i+1}=x_{i+0.5}+v_{i+1}\Delta/2 $$
+
+eliminiamo $ x_{i+0.5} $
+
+$$ v_{i+1}= (1-\Delta^2/2)v_i-x_i\Delta $$
+$$ x_{i+1}= x_i+(v_i+v_{i+1})\Delta/2 $$
+
+eliminiamo x
+
+$$ v_{i+2}-v_{i+1}= (1-\Delta^2/2)(v_{i+1}-v_i)-(x_{i+1}-x_i)\Delta $$
+$$ x_{i+1}-x_i=(v_i+v_{i+1})\Delta/2 $$
+
+$$ v_{i+2}-v_{i+1}= (1-\Delta^2/2)(v_{i+1}-v_i)-(v_i+v_{i+1})\Delta^2/2 $$
+
+$$ v_{i+2}-2(1-\Delta^2/2)v_{i+1}+v_i=0 $$
+
+Quello che alla fine si ottiene \'e la stessa equazione del primo
+caso.
+
+
+\end{document}

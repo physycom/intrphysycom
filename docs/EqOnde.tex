@@ -1,0 +1,56 @@
+\documentclass[11pt]{report}
+\usepackage[italian]{babel}
+\begin{document}
+\pagestyle{empty}
+\parindent 0pt
+\hsize = 14.0truecm
+
+\newcommand{\dx}{{\partial \over \partial x}}
+\newcommand{\dxx}{{\partial^2 \over \partial x^2}}
+\newcommand{\dt}{{\partial \over \partial t}}
+
+
+{\bf  \begin{center} {\large \bf Eq. Navier Stokes 1D }  \end{center} }
+
+
+
+\begin{eqnarray*}
+   && \dt \rho        = -\dx (\rho u)                              \\
+   && \dt u  +u \dx u = -{ 1 \over \rho} \dx p +\nu \dxx u         \\
+   && \dx p = c^2 \dx \rho
+\end{eqnarray*}
+
+
+\begin{eqnarray}
+   && \dt \rho        = -\dx (\rho u)                               \label{1} \\
+   && \dt u  +u \dx u = -{ c^2 \over \rho} \dx \rho +\nu \dxx u     \label{2}
+\end{eqnarray}
+
+
+
+Consideriamo la dissipazione trascurabile ($\nu=0$) e linearizziamo intorno ad uno stato di quiete ($U_0=0$).
+
+\begin{eqnarray*}
+   u &=& U_0 + \grave{u}                              \\
+   \rho &=& \rho_0 + \grave{\rho}
+\end{eqnarray*}
+
+
+\begin{eqnarray*}
+   \dt \grave{\rho}        &=& -\rho_0\dx \grave{u}                               \\
+   \dt \grave{u} &=& -{ c^2 \over \rho_0} \dx \grave{\rho}
+\end{eqnarray*}
+
+Riscalando tutte le variabili, dipendenti ed indipendenti possiamo ottenere:
+
+\begin{eqnarray*}
+   \dt \rho        &=& -\dx u                               \\
+   \dt u &=& - \dx \rho
+\end{eqnarray*}
+
+
+Questo sistema si presta ad essere discretizzato su una griglia "staggered"
+e risulta semplice se assumiamo condizioni al contorno periodiche.
+
+
+\end{document}

@@ -1,23 +1,13 @@
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#ifdef __CYGWIN__ 
-#include <windef.h> 
-#endif 
-
-#include "Frame_1.h"
+#include <FL/Fl.H>
 #include "form.h"
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <iostream>
+#include "frame_1.h"
 
-//
 extern Frame_1   *scene;
+
 //-------------------------------------------------------------------------------------------------
 void idle_cb(void*)
 {
-  scene->redraw();
+  scene->redraw();    
 }
 // ********************************************************************************************************
 int main(int argc, char **argv) {
