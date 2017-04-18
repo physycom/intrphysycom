@@ -4,11 +4,7 @@
 //
 #pragma once
 
-#define _CRT_SECURE_NO_WARNINGS
-#define BOOST_NO_RVALUE_REFERENCES //sennò non va
-
 #include <stdio.h>
-//#include <tchar.h>
 #include <math.h>
 #include <algorithm>
 #include <time.h>

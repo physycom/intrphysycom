@@ -1,5 +1,9 @@
 #include <FL/gl.h>
+#ifdef __APPLE__
+#include <OpenGL/glu.h>
+#else
 #include <GL/glu.h>
+#endif
 #include <FL/Fl_JPEG_Image.H>
 
 #define NOME_FILE "../dati/mappa.jpg"

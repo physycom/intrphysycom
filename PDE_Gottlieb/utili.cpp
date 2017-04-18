@@ -4,7 +4,11 @@ extern double dx;
 
 //-----------------------------------------------------------------------------
 double segno( double a) {                // calcolo il segno di un double 
+#ifdef __APPLE__
+       return copysign( 1, a );
+#else
        return _copysign( 1, a );
+#endif
 }       
 //-----------------------------------------------------------------------------
 double minimo( double a, double b) {  // calcolo il minimo fra due double 

@@ -4,7 +4,11 @@
 #include <FL/Fl_Gl_Window.H>
 #include <FL/Fl_Box.H>
 #include <FL/gl.h>
+#ifdef __APPLE__
+#include <OpenGL/glu.h>
+#else
 #include <GL/glu.h>
+#endif
 #include <math.h>
 #include "draw.h"
 

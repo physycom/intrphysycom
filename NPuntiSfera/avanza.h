@@ -5,8 +5,12 @@
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
-#include <FL/gl.h>                                         // Header File For The OpenGL32 Library
-#include <GL/glu.h>                                        // Header File For The GLu32 Library
+#include <FL/gl.h>
+#ifdef __APPLE__
+#include <OpenGL/glu.h>
+#else
+#include <GL/glu.h>
+#endif
 #include "def.h"
 
 class Punto { public: int k; double d; };

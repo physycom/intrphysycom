@@ -1,6 +1,6 @@
 #include <math.h>
-#include "C:/NR300/code/nr3.h"
-#include "C:/NR300/code/fourier.h"
+#include <nr3.h>
+#include <nr3/fourier.h>
 
 #define BPI  6.2831853
 #define NDAT       128

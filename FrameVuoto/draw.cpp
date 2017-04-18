@@ -1,5 +1,4 @@
 #include <FL/gl.h>
-//#include <GL/glu.h>
 #include <math.h>
 
 #include "draw.h"
