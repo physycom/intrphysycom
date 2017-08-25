@@ -4,10 +4,10 @@ extern double dx;
 
 //-----------------------------------------------------------------------------
 double segno( double a) {                // calcolo il segno di un double 
-#ifdef __APPLE__
-       return copysign( 1, a );
-#else
+#ifdef _WIN32
        return _copysign( 1, a );
+#else
+       return copysign( 1, a );
 #endif
 }       
 //-----------------------------------------------------------------------------

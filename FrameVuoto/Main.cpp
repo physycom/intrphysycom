@@ -1,6 +1,6 @@
 #include <FL/Fl.H>
 #include "form.h"
-#include "frame.h"
+#include "Frame.h"
 
 extern Frame   *scene;
 

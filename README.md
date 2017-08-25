@@ -11,9 +11,7 @@
 
 In questo repository verrà mantenuto il codice utilizzato durante le esercitazioni di introduzione alla fisica dei sistemi complessi.
 
-È possibile procedere allo svolgimento degli esercizi (non obbligatori) in molti modi, tra i quali spicca per comodità quello di fare un fork di questo repository nel proprio account personale.  
 NON VERRANNO ACCETTATE PULL-REQUEST CONTENENTI SOLUZIONI AGLI ESERCIZI.  
-Sono invece graditi suggerimenti, correzioni ed integrazioni al materiale già presente.
 
 Buon lavoro!
 
