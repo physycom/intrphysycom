@@ -11,6 +11,11 @@
 </a>
 
 
+Compilazione su Linux/macOS: [![Build Status](https://travis-ci.org/physycom/intrphysycom.svg?branch=master)](https://travis-ci.org/physycom/intrphysycom)
+
+Compilazione su Windows/Cygwin: [![Build status](https://ci.appveyor.com/api/projects/status/9a04ucfygns1xbbi?svg=true)](https://ci.appveyor.com/project/cenit/intrphysycom)
+
+
 In questo repository verrà mantenuto il codice utilizzato durante le esercitazioni di introduzione alla fisica dei sistemi complessi.
 
 NON VERRANNO ACCETTATE PULL-REQUEST CONTENENTI SOLUZIONI AGLI ESERCIZI.
