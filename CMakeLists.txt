@@ -6,7 +6,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 if(MSVC)
   add_definitions(-D_SCL_SECURE_NO_WARNINGS)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-#  add_definitions(-DFREEGLUT_STATIC)
 endif()
 
 ### Set output directories on a per-configuration base
@@ -25,7 +24,6 @@ endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
 
 find_package(Boost REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
 find_package(FLTK REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(NR3)
@@ -40,10 +38,10 @@ if (NR3_FOUND)
 	    ${CMAKE_SOURCE_DIR}/PDE_KDV/KDV.cpp
 	    ${CMAKE_SOURCE_DIR}/PDE_KDV/Main.cpp
     )
-    target_link_libraries(PDE_KDV ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
+    target_link_libraries(PDE_KDV ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
 endif()
 
-include_directories(${GLUT_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS} ${FLTK_INCLUDE_DIR}) 
+include_directories(${OPENGL_INCLUDE_DIRS} ${FLTK_INCLUDE_DIR}) 
 
 add_executable(FrameLight 
 	${CMAKE_SOURCE_DIR}/FrameLight/draw.cpp
@@ -99,14 +97,14 @@ add_executable(PDE_waves
 	${CMAKE_SOURCE_DIR}/PDE_waves/Main.cpp
 )
 
-target_link_libraries(FrameLight ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
-target_link_libraries(FrameVuoto ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
-target_link_libraries(NPuntiSfera ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
-target_link_libraries(ODE_exponential ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
-target_link_libraries(ODE_oscillator ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
-target_link_libraries(ODE_oscillator_3D ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
-target_link_libraries(PDE_Gottlieb ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
-target_link_libraries(PDE_waves ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
+target_link_libraries(FrameLight ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
+target_link_libraries(FrameVuoto ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
+target_link_libraries(NPuntiSfera ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
+target_link_libraries(ODE_exponential ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
+target_link_libraries(ODE_oscillator ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
+target_link_libraries(ODE_oscillator_3D ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
+target_link_libraries(PDE_Gottlieb ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
+target_link_libraries(PDE_waves ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
 
 
 if(UNIX)
