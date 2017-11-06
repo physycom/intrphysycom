@@ -28,7 +28,7 @@ void draw_palla() {
   gluQuadricNormals(palla, GLU_FLAT);
   gluSphere(palla, 1.0, 50, 100);
   glEnable(GL_TEXTURE_2D);
-  // dopo zooming con glscale occorre renormalizzare le normali altrimenti l'illuminazione cambia 
+  // dopo zooming con glscale occorre renormalizzare le normali altrimenti l'illuminazione cambia
 }
 //-------------------------------------------------------------------------------------------------
 void draw_tetra() {
@@ -74,8 +74,9 @@ void draw_scene() {
   //draw_cube();
 
   glColor3f((GLfloat)0.1, (GLfloat)1.0, (GLfloat)0.1);		// redish
-  glFrontFace(GL_CW); glutSolidTeapot(0.5);			// draw the teapot
+  glFrontFace(GL_CW);
+  //glutSolidTeapot(0.5);		                  	// draw the teapot
   //glutSolidTorus(1,2,30,30);			            // draw the torus
-  //glutSolidCylinder(1,2,30,20);			            // draw the cylinder
+  //glutSolidCylinder(1,2,30,20);			          // draw the cylinder
 
 }

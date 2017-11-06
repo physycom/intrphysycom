@@ -15,15 +15,17 @@ PS \>  cinst -y vcxsrv
 5) aprire la Bash ed abilitarne il funzionamento con VcXsrv con la seguente procedura (va fatta solo la prima volta)
 
 ```bash
+sudo apt-get install vim
 cd
 vim .bashrc
 # spostarsi alla fine del file, quindi premere il tasto I sulla tastiera
 # scrivere la seguente linea di codice
 export DISPLAY=localhost:0.0
-# uscire e salvare premendo in sequenza questi tasti: ESC : w q ENTER
+# uscire e salvare premendo in sequenza questi tasti (i 'due punti' non sono estetici, fanno parte della sequenza, mentre invece ESC ed ENTER sono i rispettivi tasti della tastiera!)
+# ESC : w q ENTER
 ```
 
-4) Seguire infine la guida per Ubuntu
+6) Seguire infine la guida per Ubuntu
 
 ## Ubuntu
 
@@ -31,7 +33,7 @@ Aprire un terminale bash e digitare
 
 ```bash
 sudo apt-get update
-sudo apt-get install g++ gnuplot cmake make libfltk1.3-dev freeglut3-dev libboost-all-dev git imagemagick libjpeg-dev libxinerama-dev 
+sudo apt-get install g++ gnuplot cmake make libfltk1.3-dev freeglut3-dev libboost-all-dev git imagemagick libjpeg-dev libxinerama-dev
 ```
 
 ## macOS
@@ -68,10 +70,10 @@ PS \>             cinst -y gnuplot git cmake powershell
 PS \>             rundll32 sysdm.cpl,EditEnvironmentVariables
 ```
 
-6) Nella schermata che si apre, nella sezione superiore, creare una nuova variabile con nome WORKSPACE e come valore il path completo della nostra cartella di lavoro precedentemente stabilita. Aggiungere inoltre alla variabile "Path" il seguente percorso (assicurandosi di essere separati con un `;` da eventuali altri record presenti):
+6) Nella schermata che si apre, nella sezione superiore, creare una nuova variabile con nome WORKSPACE e come valore il path completo della nostra cartella di lavoro precedentemente stabilita. Aggiungere inoltre alla variabile "Path" il seguente percorso (su Windows 10 è sufficiente creare una nuova riga, su Windows 7/8 invece è necessario assicurarsi di separare con un `;` l'aggiunta da eventuali altri record presenti):
 
 ```cmd
-%PROGRAMFILES%/CMake/bin;
+%PROGRAMFILES%/CMake/bin
 ```
 
 7) Se vcpkg non è installato, eseguire la procedura seguente, altrimenti saltare direttamente al punto 9. Chiudere la Powershell e riaprirla, sempre in modalità utente standard
