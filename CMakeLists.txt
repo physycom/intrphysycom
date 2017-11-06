@@ -107,3 +107,15 @@ target_link_libraries(ODE_oscillator ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OP
 target_link_libraries(ODE_oscillator_3D ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
 target_link_libraries(PDE_Gottlieb ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
 target_link_libraries(PDE_waves ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
+
+
+if(UNIX)
+target_link_libraries(FrameLight            ${CMAKE_DL_LIBS} )
+target_link_libraries(FrameVuoto            ${CMAKE_DL_LIBS} )
+target_link_libraries(NPuntiSfera           ${CMAKE_DL_LIBS} )
+target_link_libraries(ODE_exponential       ${CMAKE_DL_LIBS} )
+target_link_libraries(ODE_oscillator        ${CMAKE_DL_LIBS} )
+target_link_libraries(ODE_oscillator_3D     ${CMAKE_DL_LIBS} )
+target_link_libraries(PDE_Gottlieb          ${CMAKE_DL_LIBS} )
+target_link_libraries(PDE_waves             ${CMAKE_DL_LIBS} )
+endif()

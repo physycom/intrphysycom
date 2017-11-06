@@ -31,7 +31,7 @@ Aprire un terminale bash e digitare
 
 ```bash
 sudo apt-get update
-sudo apt-get install g++ gnuplot cmake make libfltk1.3-dev freeglut3-dev libboost-all-dev git imagemagick libjpeg-dev
+sudo apt-get install g++ gnuplot cmake make libfltk1.3-dev freeglut3-dev libboost-all-dev git imagemagick libjpeg-dev libxinerama-dev 
 ```
 
 ## macOS
