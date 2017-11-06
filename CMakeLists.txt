@@ -9,6 +9,20 @@ if(MSVC)
 #  add_definitions(-DFREEGLUT_STATIC)
 endif()
 
+### Set output directories on a per-configuration base
+# Single configuration
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin )
+# Multi configuration
+foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
+    string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
+    if( OUTPUTCONFIG STREQUAL "RELEASE" )
+    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin )
+    else()
+    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin/${OUTPUTCONFIG} )
+    endif()
+endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
+
+
 find_package(Boost REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
@@ -93,8 +107,3 @@ target_link_libraries(ODE_oscillator ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OP
 target_link_libraries(ODE_oscillator_3D ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
 target_link_libraries(PDE_Gottlieb ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
 target_link_libraries(PDE_waves ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES} ${GLUT_glut_LIBRARY})
-
-install (TARGETS FrameLight FrameVuoto NPuntiSfera ODE_exponential ODE_oscillator ODE_oscillator_3D PDE_Gottlieb PDE_waves
-	DESTINATION ${CMAKE_SOURCE_DIR}/bin)
-
-
