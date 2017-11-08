@@ -1,0 +1,14 @@
+--- a/cmake/realft.cpp
++++ b/cmake/realft.cpp
+@@ -2,7 +2,10 @@
+ #include "nr.h"
+ using namespace std;
+
+-void NR::realft(Vec_IO_DP &data, const int isign)
++typedef double DP;
++void four1(VecDoub_IO &, const int);
++
++void realft(VecDoub_IO &data, const int isign)
+ {
+        int i,i1,i2,i3,i4;
+        DP c1=0.5,c2,h1r,h1i,h2r,h2i,wr,wi,wpr,wpi,wtemp,theta;

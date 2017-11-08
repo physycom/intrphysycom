@@ -1,0 +1,13 @@
+--- a/cmake/four1.cpp
++++ b/cmake/four1.cpp
+@@ -2,7 +2,9 @@
+ #include "nr.h"
+ using namespace std;
+
+-void NR::four1(Vec_IO_DP &data, const int isign)
++typedef double DP;
++
++void four1(VecDoub_IO &data, const int isign)
+ {
+ 	int n,mmax,m,j,istep,i;
+ 	DP wtemp,wr,wpr,wpi,wi,theta,tempr,tempi;

@@ -3,13 +3,8 @@
 
 #include <FL/Fl_Gl_Window.H>
 #include <FL/gl.h>
-#ifdef __APPLE__
-#include <OpenGL/glu.h>
-#else
-#include <GL/glu.h>
-#endif
+#include <FL/glu.h>
 #include <math.h>
-
 
 class Frame_1 : public Fl_Gl_Window {
   void init();

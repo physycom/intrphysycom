@@ -3,18 +3,14 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
-#ifdef __CYGWIN__ 
-#include <windef.h> 
-#endif 
+#ifdef __CYGWIN__
+#include <windef.h>
+#endif
 
 #include <FL/Fl.H>
 #include <FL/Fl_Gl_Window.H>
 #include <FL/gl.h>
-#ifdef __APPLE__
-#include <OpenGL/glu.h>
-#else
-#include <GL/glu.h>
-#endif
+#include <FL/glu.h>
 
 class Frame_1 : public Fl_Gl_Window {
   int handle(int);

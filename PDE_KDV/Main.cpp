@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <FL/Fl.H>
 #include "form.h"
-#include "frame_1.h"
+#include "Frame_1.h"
 
 extern Frame_1   *scene;
 //-------------------------------------------------------------------------------------------------
 void idle_cb(void*)
 {
-  scene->redraw();    
+  scene->redraw();
 }
 // ********************************************************************************************************
 int main(int argc, char **argv) {

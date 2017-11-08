@@ -1,12 +1,12 @@
 #include <math.h>
-#include <nr3.h>
+#include <nr.h>
 
 #define BPI  6.2831853
 #define NDAT       128
 
 using namespace std;
 
-void realft(double &, const int );
+void realft(VecDoub_IO &, const int);
 
 VecDoub_IO u(NDAT);
 

@@ -1,9 +1,5 @@
 #include <FL/gl.h>
-#ifdef __APPLE__
-#include <OpenGL/glu.h>
-#else
-#include <GL/glu.h>
-#endif
+#include <FL/glu.h>
 
 #include "Frame.h"
 #include "draw.h"
@@ -23,7 +19,7 @@ void Frame::draw() {
     glLoadIdentity();                                      // Reset The View
     gluLookAt( 0, 0, 10,     0, 0, 0,     0, 1, 0);         // Position - View  - Up Vector
     glEnable(GL_DEPTH_TEST);
-    
+
     draw_init();
     valid(1);
   }

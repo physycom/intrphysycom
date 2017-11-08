@@ -29,17 +29,34 @@ find_package(FLTK REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(NR3)
 
-
+# if not found, download from official repo and https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/ only required files
 if (NOT NR3_FOUND)
   file(DOWNLOAD "http://numerical.recipes/codefile.php?nr3"
-    ${CMAKE_SOURCE_DIR}/cmake/nr3.h
+    ${CMAKE_SOURCE_DIR}/cmake/nr.h
     TIMEOUT 3
     STATUS download_status
   )
-  file(DOWNLOAD "https://raw.githubusercontent.com/githubapitest/githubapitest/master/numerical-recipes-j/core/src/main/legacy/nr2/CPP_211/recipes/realft.cpp"
+
+  file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/realft.cpp"
     ${CMAKE_SOURCE_DIR}/cmake/realft.cpp
     TIMEOUT 3
     STATUS download_status
+  )
+  execute_process(
+  COMMAND git --work-tree=. --git-dir=.git apply ${CMAKE_SOURCE_DIR}/cmake/realft.patch --ignore-whitespace --whitespace=nowarn --verbose
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  RESULT_VARIABLE error_code
+  )
+
+  file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/four1.cpp"
+    ${CMAKE_SOURCE_DIR}/cmake/four1.cpp
+    TIMEOUT 3
+    STATUS download_status
+  )
+  execute_process(
+  COMMAND git --work-tree=. --git-dir=.git apply ${CMAKE_SOURCE_DIR}/cmake/four1.patch --ignore-whitespace --whitespace=nowarn --verbose
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  RESULT_VARIABLE error_code
   )
 endif()
 
@@ -47,42 +64,47 @@ set(NR3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/cmake)
 
 include_directories(${OPENGL_INCLUDE_DIRS} ${FLTK_INCLUDE_DIR} ${NR3_INCLUDE_DIR})
 
-add_executable(PDE_KDV
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/draw.cpp
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/form.cpp
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/Frame_1.cpp
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/KDV.cpp
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/Main.cpp
-    ${CMAKE_SOURCE_DIR}/cmake/realft.cpp
-   )
-
 
 add_executable(FrameLight
 	${CMAKE_SOURCE_DIR}/FrameLight/draw.cpp
+	${CMAKE_SOURCE_DIR}/FrameLight/draw.h
 	${CMAKE_SOURCE_DIR}/FrameLight/form.cpp
+	${CMAKE_SOURCE_DIR}/FrameLight/form.h
 	${CMAKE_SOURCE_DIR}/FrameLight/Frame_1.cpp
+	${CMAKE_SOURCE_DIR}/FrameLight/Frame_1.h
 	${CMAKE_SOURCE_DIR}/FrameLight/Main.cpp
 )
 
 add_executable(FrameVuoto
 	${CMAKE_SOURCE_DIR}/FrameVuoto/draw.cpp
+	${CMAKE_SOURCE_DIR}/FrameVuoto/draw.h
 	${CMAKE_SOURCE_DIR}/FrameVuoto/form.cpp
+	${CMAKE_SOURCE_DIR}/FrameVuoto/form.h
 	${CMAKE_SOURCE_DIR}/FrameVuoto/Frame.cpp
+	${CMAKE_SOURCE_DIR}/FrameVuoto/Frame.h
 	${CMAKE_SOURCE_DIR}/FrameVuoto/Main.cpp
+	${CMAKE_SOURCE_DIR}/FrameVuoto/includes.h
 )
 
 add_executable(NPuntiSfera
 	${CMAKE_SOURCE_DIR}/NPuntiSfera/avanza.cpp
+	${CMAKE_SOURCE_DIR}/NPuntiSfera/avanza.h
+	${CMAKE_SOURCE_DIR}/NPuntiSfera/def.h
 	${CMAKE_SOURCE_DIR}/NPuntiSfera/draw.cpp
+	${CMAKE_SOURCE_DIR}/NPuntiSfera/draw.h
 	${CMAKE_SOURCE_DIR}/NPuntiSfera/form.cpp
+	${CMAKE_SOURCE_DIR}/NPuntiSfera/form.h
 	${CMAKE_SOURCE_DIR}/NPuntiSfera/Frame_1.cpp
+	${CMAKE_SOURCE_DIR}/NPuntiSfera/Frame_1.h
 	${CMAKE_SOURCE_DIR}/NPuntiSfera/Main.cpp
+	${CMAKE_SOURCE_DIR}/NPuntiSfera/Main.h
 	${CMAKE_SOURCE_DIR}/NPuntiSfera/messaggi.cpp
 	${CMAKE_SOURCE_DIR}/NPuntiSfera/texture_jpg.cpp
 )
 
 add_executable(ODE_exponential
 	${CMAKE_SOURCE_DIR}/ODE_exponential/exp.cpp
+	${CMAKE_SOURCE_DIR}/ODE_exponential/includes.h
 )
 
 add_executable(ODE_oscillator
@@ -91,23 +113,46 @@ add_executable(ODE_oscillator
 
 add_executable(ODE_oscillator_3D
 	${CMAKE_SOURCE_DIR}/ODE_oscillator_3D/classi.cpp
+	${CMAKE_SOURCE_DIR}/ODE_oscillator_3D/classi.h
+	${CMAKE_SOURCE_DIR}/ODE_oscillator_3D/includes.h
 	${CMAKE_SOURCE_DIR}/ODE_oscillator_3D/main.cpp
 )
 
 add_executable(PDE_Gottlieb
+	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/dati.h
 	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/draw.cpp
+	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/draw.h
 	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/EqOnde.cpp
 	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/form.cpp
+	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/form.h
 	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/Frame_1.cpp
+	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/Frame_1.h
 	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/Main.cpp
 	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/utili.cpp
+	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/utili.h
 )
+
+add_executable(PDE_KDV
+    ${CMAKE_SOURCE_DIR}/PDE_KDV/draw.cpp
+    ${CMAKE_SOURCE_DIR}/PDE_KDV/draw.h
+    ${CMAKE_SOURCE_DIR}/PDE_KDV/form.cpp
+    ${CMAKE_SOURCE_DIR}/PDE_KDV/form.h
+    ${CMAKE_SOURCE_DIR}/PDE_KDV/Frame_1.cpp
+    ${CMAKE_SOURCE_DIR}/PDE_KDV/Frame_1.h
+    ${CMAKE_SOURCE_DIR}/PDE_KDV/KDV.cpp
+    ${CMAKE_SOURCE_DIR}/PDE_KDV/Main.cpp
+    ${CMAKE_SOURCE_DIR}/cmake/realft.cpp
+    ${CMAKE_SOURCE_DIR}/cmake/four1.cpp
+   )
 
 add_executable(PDE_waves
 	${CMAKE_SOURCE_DIR}/PDE_waves/draw.cpp
+	${CMAKE_SOURCE_DIR}/PDE_waves/draw.h
 	${CMAKE_SOURCE_DIR}/PDE_waves/EqOnde.cpp
 	${CMAKE_SOURCE_DIR}/PDE_waves/form.cpp
+	${CMAKE_SOURCE_DIR}/PDE_waves/form.h
 	${CMAKE_SOURCE_DIR}/PDE_waves/Frame_1.cpp
+	${CMAKE_SOURCE_DIR}/PDE_waves/Frame_1.h
 	${CMAKE_SOURCE_DIR}/PDE_waves/Main.cpp
 )
 
