@@ -68,7 +68,5 @@ bld/
 [Bb]in/
 [Oo]bj/
 
-cmake/nr.h
-cmake/realft.cpp
-cmake/four1.cpp
-
+cmake/*.h
+cmake/*.cpp

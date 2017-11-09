@@ -45,7 +45,7 @@ if (NOT NR3_FOUND AND NOT INTERNET_DISABLED)
     TIMEOUT 3
     STATUS download_status
   )
-  
+
   file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/realft.cpp"
     ${CMAKE_SOURCE_DIR}/cmake/realft.cpp
     TIMEOUT 3
@@ -190,19 +190,6 @@ add_executable(PDE_Gottlieb
 	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/utili.h
 )
 
-add_executable(Robby
-    ${CMAKE_SOURCE_DIR}/src/Robby/draw.cpp
-    ${CMAKE_SOURCE_DIR}/src/Robby/draw.h
-    ${CMAKE_SOURCE_DIR}/src/Robby/form.cpp
-    ${CMAKE_SOURCE_DIR}/src/Robby/form.h
-    ${CMAKE_SOURCE_DIR}/src/Robby/frame.cpp
-    ${CMAKE_SOURCE_DIR}/src/Robby/frame.h
-    ${CMAKE_SOURCE_DIR}/src/Robby/includes.h
-    ${CMAKE_SOURCE_DIR}/src/Robby/main_grafica.cpp
-    ${CMAKE_SOURCE_DIR}/src/Robby/robby.cpp
-    ${CMAKE_SOURCE_DIR}/src/Robby/robby.h
-   )
-
 if (NR3_FOUND)
 add_executable(PDE_KDV
     ${CMAKE_SOURCE_DIR}/src/PDE_KDV/draw.cpp
@@ -218,7 +205,22 @@ add_executable(PDE_KDV
     ${CMAKE_SOURCE_DIR}/cmake/nr.h
     ${CMAKE_SOURCE_DIR}/cmake/realft.cpp
     ${CMAKE_SOURCE_DIR}/cmake/four1.cpp
-   )
+)
+
+add_executable(Robby
+    ${CMAKE_SOURCE_DIR}/src/Robby/draw.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/draw.h
+    ${CMAKE_SOURCE_DIR}/src/Robby/form.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/form.h
+    ${CMAKE_SOURCE_DIR}/src/Robby/frame.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/frame.h
+    ${CMAKE_SOURCE_DIR}/src/Robby/includes.h
+    ${CMAKE_SOURCE_DIR}/src/Robby/main_grafica.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/robby.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/robby.h
+    ${CMAKE_SOURCE_DIR}/cmake/nr.h
+    ${CMAKE_SOURCE_DIR}/cmake/ran.h
+)
 endif()
 
 
@@ -233,9 +235,9 @@ target_link_libraries(PDE_EqLaplace_Console ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRAR
 target_link_libraries(PDE_EqLaplace_Grafica ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
 target_link_libraries(PDE_EqOnde            ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
 target_link_libraries(PDE_Gottlieb          ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
-target_link_libraries(Robby                 ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
 if (NR3_FOUND)
 target_link_libraries(PDE_KDV               ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(Robby                 ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
 endif()
 
 if(UNIX)
@@ -250,8 +252,8 @@ target_link_libraries(PDE_EqLaplace_Console ${CMAKE_DL_LIBS} )
 target_link_libraries(PDE_EqLaplace_Grafica ${CMAKE_DL_LIBS} )
 target_link_libraries(PDE_EqOnde            ${CMAKE_DL_LIBS} )
 target_link_libraries(PDE_Gottlieb          ${CMAKE_DL_LIBS} )
-target_link_libraries(Robby                 ${CMAKE_DL_LIBS} )
 if (NR3_FOUND)
 target_link_libraries(PDE_KDV               ${CMAKE_DL_LIBS} )
+target_link_libraries(Robby                 ${CMAKE_DL_LIBS} )
 endif()
 endif()

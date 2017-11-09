@@ -18,6 +18,8 @@ addons:
     - libglu1-mesa-dev
     - libxinerama-dev
     - libjpeg-dev
+    - libxi-dev
+    - libxmu-dev
 
 matrix:
     exclude:
