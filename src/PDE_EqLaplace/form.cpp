@@ -1,6 +1,6 @@
 #include "form.h"
 #include "dati.h"
-#include "frame.h"
+#include "Frame.h"
 
 #include <FL/FL_Box.h>
 #include <FL/Fl_Gl_Window.H>

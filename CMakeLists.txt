@@ -11,6 +11,10 @@ if(MSVC)
   add_definitions(-DBOOST_NO_RVALUE_REFERENCES)
 endif()
 
+if (APPLE)
+	add_definitions(-Wno-deprecated-declarations)
+endif()
+
 ### Set output directories on a per-configuration base
 # Single configuration
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin )
