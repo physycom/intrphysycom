@@ -35,6 +35,7 @@ Aprire un terminale bash e digitare
 sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get install g++ cmake make git 
+git config --global core.autocrlf input
 sudo apt-get install libboost-all-dev libfltk1.3-dev freeglut3-dev libgl1-mesa-dev libglu1-mesa-dev libxinerama-dev libjpeg-dev libxi-dev libxmu-dev
 ```
 
@@ -55,7 +56,8 @@ xcode-select --install
 brew update
 brew upgrade
 brew install cmake make git
-brew install fltk boost
+git config --global core.autocrlf input
+brew install fltk boost freeglut
 ```
 
 ## Windows (7+)
@@ -85,6 +87,7 @@ PS \>             rundll32 sysdm.cpl,EditEnvironmentVariables
 
 ```PowerShell
 PS \>             cd $env:WORKSPACE
+PS Codice>        git config --global core.autocrlf input
 PS Codice>        git clone https://github.com/Microsoft/vcpkg.git
 PS Codice>        cd vcpkg
 PS Codice\vcpkg>  .\bootstrap-vcpkg.bat
