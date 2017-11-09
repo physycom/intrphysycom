@@ -33,8 +33,12 @@ Aprire un terminale bash e digitare
 
 ```bash
 sudo apt-get update
-sudo apt-get install g++ gnuplot cmake make libfltk1.3-dev freeglut3-dev libboost-all-dev git imagemagick libjpeg-dev libxinerama-dev
+sudo apt-get dist-upgrade
+sudo apt-get install g++ cmake make git 
+sudo apt-get install libboost-all-dev libfltk1.3-dev freeglut3-dev libgl1-mesa-dev libglu1-mesa-dev libxinerama-dev libjpeg-dev libxi-dev libxmu-dev
 ```
+
+Rispondere Y (oppure S) alle eventuali richieste di conferma
 
 ## macOS
 
@@ -49,18 +53,19 @@ xcode-select --install
 
 ```bash
 brew update
-brew install gnuplot cmake make fltk boost git
-brew install imagemagick --with-x11
+brew upgrade
+brew install cmake make git
+brew install fltk boost
 ```
 
 ## Windows (7+)
 
 1) Installare/aggiornare Visual Studio alla versione 2017. Se è necessario installarlo, scaricarlo da qui: [Visual Studio 2017 Community](http://visualstudio.com).
 2) Se non installato, installare [chocolatey](http://chocolatey.org)
-3) Se non avete gnuplot e un client git installati, aprire Powershell in modalità amministratore e quindi digitare
+3) Se non avete `git` e `cmake` già installati, oppure se non siete sicuri di avere una Powershell recente, aprire Powershell in modalità amministratore e quindi digitare
 
 ```PowerShell
-PS \>             cinst -y gnuplot git cmake powershell
+PS \>             cinst -y git cmake powershell
 ```
 
 4) Riavviare il PC se richiesto da chocolatey
@@ -70,7 +75,7 @@ PS \>             cinst -y gnuplot git cmake powershell
 PS \>             rundll32 sysdm.cpl,EditEnvironmentVariables
 ```
 
-6) Nella schermata che si apre, nella sezione superiore, creare una nuova variabile con nome WORKSPACE e come valore il path completo della nostra cartella di lavoro precedentemente stabilita. Aggiungere inoltre alla variabile "Path" il seguente percorso (su Windows 10 è sufficiente creare una nuova riga, su Windows 7/8 invece è necessario assicurarsi di separare con un `;` l'aggiunta da eventuali altri record presenti):
+6) Nella schermata che si apre, nella sezione superiore, creare una nuova variabile con nome WORKSPACE e come valore il path completo della nostra cartella di lavoro precedentemente stabilita. Se CMake non fosse già nel path perché già fatto in passato, bisogna inoltre aggiungere alla variabile "Path" il seguente percorso (su Windows 10 è sufficiente creare una nuova riga, su Windows 7/8 invece è necessario assicurarsi di separare con un `;` l'aggiunta da eventuali altri record presenti):
 
 ```cmd
 %PROGRAMFILES%/CMake/bin
@@ -115,4 +120,13 @@ popd
 Write-Host "Visual Studio 2017 Command Prompt variables set.`n" -ForegroundColor Yellow
 ```
 
-e salvarlo nella cartella Documenti\WindowsPowerShell del proprio utente con nome `Microsoft.PowerShell_profile.ps1`
+e salvarlo nella cartella `Documenti\WindowsPowerShell` del proprio utente con nome `Microsoft.PowerShell_profile.ps1`
+
+### Upgrade software
+
+1) Per aggiornare i programmi installati con Chocolatey, aprire Powershell in modalità amministratore e quindi digitare
+
+```PowerShell
+PS \>             cup all -y
+```
+

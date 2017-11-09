@@ -1,0 +1,101 @@
+\documentclass[11pt]{report}
+\usepackage[italian]{babel}
+\begin{document}
+\pagestyle{empty}
+\parindent 0pt
+\hsize = 14.0truecm
+
+\newcommand{\dx}{{\partial \over \partial x}}
+\newcommand{\dxx}{{\partial^2 \over \partial x^2}}
+\newcommand{\dt}{{\partial \over \partial t}}
+
+
+{\bf  \begin{center} {\large \bf Eq. Calore 1D }  \end{center} }
+
+$$
+   \dt T  = K \dxx T   \label{1} 
+$$
+
+
+Dove $T(t,x)$ rappresenta la temperatura e  $K$ rappresenta la conduzione.
+
+Discretizziamo lo spazio ed il tempo: $ t_n= n\Delta t$ e $ x_j=j \Delta x$.
+
+{\bf  \begin{center} {\large \bf Schema 1 }  \end{center} }
+
+Utilizziamo il seguente schema centrato nello spazio (secondo ordine in $\Delta x$) ed Eulero nel tempo (primo ordine in $\Delta t$).
+
+$$
+T^{n+1}_j = T^n_j + \sigma ( T^n_{j-1} - 2 T^n_j +  T^n_{j+1})    \label{2} 
+$$
+
+Dove $  \sigma= K{ \Delta t / {\Delta x}^2}$. Per studiare la stabilit\'a di questo schema possiamo studiare la crescita di una perturbazione. Assumiamo di conoscere la soluzione esatta $T_E$ e sostituiamo $ T = T_E + \epsilon $. sviluppando l'errore $\epsilon$ con fourier poniamo:
+
+$$ \epsilon (t,x) = A(t) e^{ikx} $$ 
+
+sostituendo in Eq. \label(2) otteniamo:
+
+$$
+A^{n+1} = ( 1+2 \sigma (cos(k\Delta x) - 1) A^n
+$$
+
+$A$ non cresce nel tempo se $ | 1-2 \sigma (1-cos(k\Delta x)  | < 1 $ ossia se $ \sigma < 1/2 $
+
+
+{\bf  \begin{center} {\large \bf Schema 2 }  \end{center} }
+
+Utilizziamo il seguente schema centrato nello spazio e nel tempo ( secondo ordine in $\Delta x$ e in $\Delta t$).
+
+$$
+T^{n+1}_j = T^{n-1}_j + 2\sigma ( T^n_{j-1} - 2 T^n_j +  T^n_{j+1})    \label{3} 
+$$
+
+
+per studiare la stabilit\'a di questo schema possiamo studiare la crescita di una perturbazione. Assumiamo di conoscere la soluzione esatta $T_E$ e sostituiamo $ T = T_E + \epsilon $. sviluppando l'errore $\epsilon$ con fourier poniamo:
+
+$$ \epsilon (t,x) = A(t) e^{ikx} $$ 
+
+sostituendo in Eq. \label(2) otteniamo:
+
+$$
+A^{n+1} =    A^{n-1}  +4 \sigma (cos(k\Delta x) - 1) A^n
+$$
+
+La soluzione di questa equazione alle differenze pu\'o essere trovata assumendo $A^n = p^n$ ossia p elevato alla n.
+Raccogliendo $p^{n-1}$ otteniamo:
+
+$$
+p^2 - 4 \sigma (cos(k\Delta x) - 1) p  -1 =0;
+$$
+
+Osserviamo che il prodotto delle radici vale -1 e non \'e possibile avere entrambe le soluzioni in modulo minori di 1.
+
+{\bf  \begin{center} {\large \bf Schema 3 }  \end{center} }
+
+Utilizziamo il seguente schema centrato nello spazio (secondo ordine in $\Delta x$) ed Eulero nel tempo (primo ordine in $\Delta t$).
+
+$$
+T^{n+1}_j = T^n_j + \sigma ( T^{n+1}_{j-1} - 2 T^{n+1}_j +  T^{n+1}_{j+1})    \label{4} 
+$$
+
+Osserviamo che la derivata seconda \'e calcolata al tempo $n+1$. Studiamo la stabilit\'a di questo schema introducendo un piccolo errore:
+$$ \epsilon (t,x) = A(t) e^{ikx} $$ 
+
+sostituendo in Eq. \label(4) otteniamo:
+
+$$
+A^{n+1} = A^n / ( 1+2 \sigma (1-cos(k\Delta x) ) 
+$$
+
+$A$ non cresce nel tempo se $ | 1+2 \sigma (1-cos(k\Delta x)  | > 1 $ ossia per ogni  $ \sigma  $.
+
+
+Per risolverla numericamente riscriviamo la \label{4} come:
+
+$$
+    T^{n+1}_{j-1} - (2+1/\sigma) T^{n+1}_j   +  T^{n+1}_{j+1}  = -(1 /  \sigma)T^n_j   \label{5} 
+$$
+
+Occorre prestare attenzione a come si applicano le condizioni al contorno.
+
+\end{document}

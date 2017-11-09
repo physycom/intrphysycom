@@ -17,9 +17,20 @@ Compilazione su Windows/Cygwin: [![Build status](https://ci.appveyor.com/api/pro
 
 
 In questo repository verrà mantenuto il codice utilizzato durante le esercitazioni di introduzione alla fisica dei sistemi complessi.
+È possibile farne un fork nel proprio account personale oppure scaricare direttamente il contenuto del repository con questo comando:
+
+```bash
+git clone https://github.com/physycom/intrphysycom.git
+```
 
 NON VERRANNO ACCETTATE PULL-REQUEST CONTENENTI SOLUZIONI AGLI ESERCIZI.
 
 Buon lavoro!
 
 Per compilare il codice è sufficiente utilizzare gli script `build.sh` per chi utilizza Linux/macOS (incluso il sottosistema linux di Windows) oppure lo script `build.ps1` per chi utilizzasse invece Windows
+
+Per aggiornare il contenuto del repository, utile per chi volesse scaricare le ultime novità, è sufficiente fare questo comando (da dentro la cartella `intrphysycom`)
+
+```bash
+git pull
+```

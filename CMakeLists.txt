@@ -3,6 +3,8 @@ project (intrphysycom)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
+set (INTERNET_DISABLED OFF CACHE BOOL "DO NOT USE INTERNET CONNECTION")
+
 if(MSVC)
   add_definitions(-D_SCL_SECURE_NO_WARNINGS)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
@@ -27,16 +29,23 @@ find_package(Boost REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(FLTK REQUIRED)
 find_package(JPEG REQUIRED)
+find_package(GLUT REQUIRED)
 find_package(NR3)
 
-# if not found, download from official repo and https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/ only required files
-if (NOT NR3_FOUND)
+if (NOT NR3_FOUND AND NOT INTERNET_DISABLED)
+# if not found, download from official repo and https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/ only required files
   file(DOWNLOAD "http://numerical.recipes/codefile.php?nr3"
     ${CMAKE_SOURCE_DIR}/cmake/nr.h
     TIMEOUT 3
     STATUS download_status
   )
 
+  file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/code/ran.h"
+    ${CMAKE_SOURCE_DIR}/cmake/ran.h
+    TIMEOUT 3
+    STATUS download_status
+  )
+  
   file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/realft.cpp"
     ${CMAKE_SOURCE_DIR}/cmake/realft.cpp
     TIMEOUT 3
@@ -58,122 +67,191 @@ if (NOT NR3_FOUND)
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   RESULT_VARIABLE error_code
   )
+  set(NR3_FOUND TRUE)
 endif()
 
 set(NR3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/cmake)
 
-include_directories(${OPENGL_INCLUDE_DIRS} ${FLTK_INCLUDE_DIR} ${NR3_INCLUDE_DIR})
+include_directories(${OPENGL_INCLUDE_DIRS} ${FLTK_INCLUDE_DIR} ${NR3_INCLUDE_DIR} ${GLUT_INCLUDE_DIR})
 
 
 add_executable(FrameLight
-	${CMAKE_SOURCE_DIR}/FrameLight/draw.cpp
-	${CMAKE_SOURCE_DIR}/FrameLight/draw.h
-	${CMAKE_SOURCE_DIR}/FrameLight/form.cpp
-	${CMAKE_SOURCE_DIR}/FrameLight/form.h
-	${CMAKE_SOURCE_DIR}/FrameLight/Frame_1.cpp
-	${CMAKE_SOURCE_DIR}/FrameLight/Frame_1.h
-	${CMAKE_SOURCE_DIR}/FrameLight/Main.cpp
+	${CMAKE_SOURCE_DIR}/src/FrameLight/draw.cpp
+	${CMAKE_SOURCE_DIR}/src/FrameLight/draw.h
+	${CMAKE_SOURCE_DIR}/src/FrameLight/form.cpp
+	${CMAKE_SOURCE_DIR}/src/FrameLight/form.h
+	${CMAKE_SOURCE_DIR}/src/FrameLight/Frame_1.cpp
+	${CMAKE_SOURCE_DIR}/src/FrameLight/Frame_1.h
+	${CMAKE_SOURCE_DIR}/src/FrameLight/Main.cpp
 )
 
 add_executable(FrameVuoto
-	${CMAKE_SOURCE_DIR}/FrameVuoto/draw.cpp
-	${CMAKE_SOURCE_DIR}/FrameVuoto/draw.h
-	${CMAKE_SOURCE_DIR}/FrameVuoto/form.cpp
-	${CMAKE_SOURCE_DIR}/FrameVuoto/form.h
-	${CMAKE_SOURCE_DIR}/FrameVuoto/Frame.cpp
-	${CMAKE_SOURCE_DIR}/FrameVuoto/Frame.h
-	${CMAKE_SOURCE_DIR}/FrameVuoto/Main.cpp
-	${CMAKE_SOURCE_DIR}/FrameVuoto/includes.h
+	${CMAKE_SOURCE_DIR}/src/FrameVuoto/draw.cpp
+	${CMAKE_SOURCE_DIR}/src/FrameVuoto/draw.h
+	${CMAKE_SOURCE_DIR}/src/FrameVuoto/form.cpp
+	${CMAKE_SOURCE_DIR}/src/FrameVuoto/form.h
+	${CMAKE_SOURCE_DIR}/src/FrameVuoto/Frame.cpp
+	${CMAKE_SOURCE_DIR}/src/FrameVuoto/Frame.h
+	${CMAKE_SOURCE_DIR}/src/FrameVuoto/includes.h
+	${CMAKE_SOURCE_DIR}/src/FrameVuoto/Main.cpp
 )
 
 add_executable(NPuntiSfera
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/avanza.cpp
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/avanza.h
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/def.h
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/draw.cpp
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/draw.h
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/form.cpp
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/form.h
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/Frame_1.cpp
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/Frame_1.h
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/Main.cpp
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/Main.h
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/messaggi.cpp
-	${CMAKE_SOURCE_DIR}/NPuntiSfera/texture_jpg.cpp
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/avanza.cpp
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/avanza.h
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/def.h
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/draw.cpp
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/draw.h
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/form.cpp
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/form.h
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/Frame_1.cpp
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/Frame_1.h
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/Main.cpp
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/Main.h
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/messaggi.cpp
+	${CMAKE_SOURCE_DIR}/src/NPuntiSfera/texture_jpg.cpp
 )
 
-add_executable(ODE_exponential
-	${CMAKE_SOURCE_DIR}/ODE_exponential/exp.cpp
-	${CMAKE_SOURCE_DIR}/ODE_exponential/includes.h
+add_executable(ODE_esponenziale
+	${CMAKE_SOURCE_DIR}/src/ODE_esponenziale/exp.cpp
+	${CMAKE_SOURCE_DIR}/src/ODE_esponenziale/includes.h
 )
 
-add_executable(ODE_oscillator
-	${CMAKE_SOURCE_DIR}/ODE_oscillator/main.cpp
+add_executable(ODE_oscillatore
+	${CMAKE_SOURCE_DIR}/src/ODE_oscillatore/main.cpp
 )
 
-add_executable(ODE_oscillator_3D
-	${CMAKE_SOURCE_DIR}/ODE_oscillator_3D/classi.cpp
-	${CMAKE_SOURCE_DIR}/ODE_oscillator_3D/classi.h
-	${CMAKE_SOURCE_DIR}/ODE_oscillator_3D/includes.h
-	${CMAKE_SOURCE_DIR}/ODE_oscillator_3D/main.cpp
+add_executable(ODE_oscillatore_3D
+	${CMAKE_SOURCE_DIR}/src/ODE_oscillatore_3D/classi.cpp
+	${CMAKE_SOURCE_DIR}/src/ODE_oscillatore_3D/classi.h
+	${CMAKE_SOURCE_DIR}/src/ODE_oscillatore_3D/includes.h
+	${CMAKE_SOURCE_DIR}/src/ODE_oscillatore_3D/main.cpp
+)
+
+add_executable(PDE_EqCalore
+	${CMAKE_SOURCE_DIR}/src/PDE_EqCalore/draw.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqCalore/draw.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqCalore/EqCalore.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqCalore/form.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqCalore/form.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqCalore/Frame.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqCalore/Frame.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqCalore/Main.cpp
+)
+
+add_executable(PDE_EqLaplace_Console
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/dati.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/draw.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/draw.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/EqLaplace.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/EqLaplace.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/form.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/form.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/Frame.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/Frame.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/MainConsole.cpp
+)
+
+add_executable(PDE_EqLaplace_Grafica
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/dati.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/draw.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/draw.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/EqLaplace.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/EqLaplace.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/form.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/form.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/Frame.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/Frame.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqLaplace/MainGrafica.cpp
+)
+
+add_executable(PDE_EqOnde
+	${CMAKE_SOURCE_DIR}/src/PDE_EqOnde/draw.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqOnde/draw.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqOnde/EqOnde.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqOnde/form.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqOnde/form.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqOnde/Frame_1.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_EqOnde/Frame_1.h
+	${CMAKE_SOURCE_DIR}/src/PDE_EqOnde/Main.cpp
 )
 
 add_executable(PDE_Gottlieb
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/dati.h
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/draw.cpp
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/draw.h
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/EqOnde.cpp
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/form.cpp
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/form.h
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/Frame_1.cpp
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/Frame_1.h
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/Main.cpp
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/utili.cpp
-	${CMAKE_SOURCE_DIR}/PDE_Gottlieb/utili.h
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/dati.h
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/draw.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/draw.h
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/EqOnde.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/form.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/form.h
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/Frame_1.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/Frame_1.h
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/Main.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/utili.cpp
+	${CMAKE_SOURCE_DIR}/src/PDE_Gottlieb/utili.h
 )
 
+add_executable(Robby
+    ${CMAKE_SOURCE_DIR}/src/Robby/draw.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/draw.h
+    ${CMAKE_SOURCE_DIR}/src/Robby/form.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/form.h
+    ${CMAKE_SOURCE_DIR}/src/Robby/frame.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/frame.h
+    ${CMAKE_SOURCE_DIR}/src/Robby/includes.h
+    ${CMAKE_SOURCE_DIR}/src/Robby/main_grafica.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/robby.cpp
+    ${CMAKE_SOURCE_DIR}/src/Robby/robby.h
+   )
+
+if (NR3_FOUND)
 add_executable(PDE_KDV
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/draw.cpp
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/draw.h
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/form.cpp
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/form.h
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/Frame_1.cpp
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/Frame_1.h
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/KDV.cpp
-    ${CMAKE_SOURCE_DIR}/PDE_KDV/Main.cpp
+    ${CMAKE_SOURCE_DIR}/src/PDE_KDV/draw.cpp
+    ${CMAKE_SOURCE_DIR}/src/PDE_KDV/draw.h
+    ${CMAKE_SOURCE_DIR}/src/PDE_KDV/form.cpp
+    ${CMAKE_SOURCE_DIR}/src/PDE_KDV/form.h
+    ${CMAKE_SOURCE_DIR}/src/PDE_KDV/Frame_1.cpp
+    ${CMAKE_SOURCE_DIR}/src/PDE_KDV/Frame_1.h
+    #${CMAKE_SOURCE_DIR}/src/PDE_KDV/guicon.cpp
+    #${CMAKE_SOURCE_DIR}/src/PDE_KDV/guicon.h
+    ${CMAKE_SOURCE_DIR}/src/PDE_KDV/KDV.cpp
+    ${CMAKE_SOURCE_DIR}/src/PDE_KDV/Main.cpp
+    ${CMAKE_SOURCE_DIR}/cmake/nr.h
     ${CMAKE_SOURCE_DIR}/cmake/realft.cpp
     ${CMAKE_SOURCE_DIR}/cmake/four1.cpp
    )
+endif()
 
-add_executable(PDE_waves
-	${CMAKE_SOURCE_DIR}/PDE_waves/draw.cpp
-	${CMAKE_SOURCE_DIR}/PDE_waves/draw.h
-	${CMAKE_SOURCE_DIR}/PDE_waves/EqOnde.cpp
-	${CMAKE_SOURCE_DIR}/PDE_waves/form.cpp
-	${CMAKE_SOURCE_DIR}/PDE_waves/form.h
-	${CMAKE_SOURCE_DIR}/PDE_waves/Frame_1.cpp
-	${CMAKE_SOURCE_DIR}/PDE_waves/Frame_1.h
-	${CMAKE_SOURCE_DIR}/PDE_waves/Main.cpp
-)
 
-target_link_libraries(FrameLight        ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
-target_link_libraries(FrameVuoto        ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
-target_link_libraries(NPuntiSfera       ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
-target_link_libraries(ODE_exponential   ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
-target_link_libraries(ODE_oscillator    ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
-target_link_libraries(ODE_oscillator_3D ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
-target_link_libraries(PDE_Gottlieb      ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
-target_link_libraries(PDE_KDV           ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
-target_link_libraries(PDE_waves         ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${JPEG_LIBRARIES})
+target_link_libraries(FrameLight            ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(FrameVuoto            ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(NPuntiSfera           ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(ODE_esponenziale      ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(ODE_oscillatore       ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(ODE_oscillatore_3D    ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(PDE_EqCalore          ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(PDE_EqLaplace_Console ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(PDE_EqLaplace_Grafica ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(PDE_EqOnde            ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(PDE_Gottlieb          ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+target_link_libraries(Robby                 ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+if (NR3_FOUND)
+target_link_libraries(PDE_KDV               ${FLTK_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${GLUT_LIBRARIES} ${JPEG_LIBRARIES})
+endif()
 
 if(UNIX)
 target_link_libraries(FrameLight            ${CMAKE_DL_LIBS} )
 target_link_libraries(FrameVuoto            ${CMAKE_DL_LIBS} )
 target_link_libraries(NPuntiSfera           ${CMAKE_DL_LIBS} )
-target_link_libraries(ODE_exponential       ${CMAKE_DL_LIBS} )
-target_link_libraries(ODE_oscillator        ${CMAKE_DL_LIBS} )
-target_link_libraries(ODE_oscillator_3D     ${CMAKE_DL_LIBS} )
+target_link_libraries(ODE_esponenziale      ${CMAKE_DL_LIBS} )
+target_link_libraries(ODE_oscillatore       ${CMAKE_DL_LIBS} )
+target_link_libraries(ODE_oscillatore_3D    ${CMAKE_DL_LIBS} )
+target_link_libraries(PDE_EqCalore          ${CMAKE_DL_LIBS} )
+target_link_libraries(PDE_EqLaplace_Console ${CMAKE_DL_LIBS} )
+target_link_libraries(PDE_EqLaplace_Grafica ${CMAKE_DL_LIBS} )
+target_link_libraries(PDE_EqOnde            ${CMAKE_DL_LIBS} )
 target_link_libraries(PDE_Gottlieb          ${CMAKE_DL_LIBS} )
+target_link_libraries(Robby                 ${CMAKE_DL_LIBS} )
+if (NR3_FOUND)
 target_link_libraries(PDE_KDV               ${CMAKE_DL_LIBS} )
-target_link_libraries(PDE_waves             ${CMAKE_DL_LIBS} )
+endif()
 endif()

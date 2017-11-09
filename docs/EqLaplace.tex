@@ -1,0 +1,48 @@
+\documentclass[11pt]{report}
+\usepackage[italian]{babel}
+\begin{document}
+\pagestyle{empty}
+\parindent 0pt
+\hsize = 14.0truecm
+
+\newcommand{\dx}{{\partial \over \partial x}}
+\newcommand{\dxx}{{\partial^2 \over \partial x^2}}
+\newcommand{\dyy}{{\partial^2 \over \partial y^2}}
+\newcommand{\dt}{{\partial \over \partial t}}
+
+
+{\bf  \begin{center} {\large \bf Eq. Laplace 2D }  \end{center} }
+
+$$
+   \dyy\Phi  + \dxx\Phi  = f(x,y) \label{1} 
+$$
+
+
+Dove $\Phi$ \'e la funzione incognita e $f(t,x)$ rappresenta la forzante.
+
+Discretizziamo lo spazio ed il tempo: $x_i= i\Delta x$ e $ y_j=j \Delta y$.
+
+Utilizziamo il seguente schema centrato nello spazio (secondo ordine in $\Delta x$ e $\Delta y$) assumendo 
+$\Delta x = \Delta y = \Delta$ 
+
+$$ 
+\Phi_{i+1,j}+\Phi_{i-1,j}+\Phi_{i,j-1}+\Phi_{i,j-1}-4\Phi_{i,j} = \Delta^2 f_{i,j}    \label{2} 
+$$
+
+Introduciamo l'errore $\epsilon_{i,j}$ come:
+
+$$ 
+ \epsilon_{i,j}   = \Phi_{i,j} - (\Phi_{i+1,j}+\Phi_{i-1,j}+\Phi_{i,j-1}+\Phi_{i,j-1} - \Delta^2 f_{i,j})/4    \label{3} 
+$$
+e costruiamo il seguente schema schema iterattivo
+
+$$ 
+ \Phi^{n+1}_{i,j}=  \Phi^{n}_{i,j} -\alpha \epsilon^{n}_{i,j}    \label{4} 
+$$
+
+Come condizioni al contorno assumiamo una funzione nota sulla frontiera del dominio.
+
+Nel codice allegato ho incluso due versioni dell'algoritmo, la prima calcola l'errore in ogni punto del dominio e poi aggiorna la $\Phi$ ed in questa versione $\alpha$ deve essere minore di uno ed abbiamo una lenta convergenza, dopo 100 iterazioni l'errore si è circa dimezzato. La seconda versione aggiorna la $\Phi$ appena calcolato un errore, in questa versione $\alpha$ deve essere minore di due e la convergenza è molto più rapida, dopo cento iterazioni l'errore è circa un millesimo.
+
+
+\end{document}
