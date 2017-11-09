@@ -15,17 +15,20 @@ if (APPLE)
 	add_definitions(-Wno-deprecated-declarations)
 endif()
 
+
+# make sure that the default is a RELEASE
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE RELEASE)
+endif()
+
+
 ### Set output directories on a per-configuration base
 # Single configuration
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin )
 # Multi configuration
 foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
     string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
-    if( OUTPUTCONFIG STREQUAL "RELEASE" )
     set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin )
-    else()
-    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin/${OUTPUTCONFIG} )
-    endif()
 endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
 
 
