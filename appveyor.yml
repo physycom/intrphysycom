@@ -9,6 +9,11 @@ environment:
       CYGWIN_NOWINPATH: yes
     - platform: Win32
       COMPILER: vs
+      LINKING: static
+    - platform: Win32
+      COMPILER: vs
+      LINKING: dynamic
+
 
 install:
   - if [%COMPILER%]==[vs] cinst cmake
@@ -28,7 +33,8 @@ install:
   - cd vcpkg
   - if [%COMPILER%]==[vs] powershell -exec bypass scripts\bootstrap.ps1
   - if [%COMPILER%]==[vs] vcpkg integrate install
-  - if [%COMPILER%]==[vs] vcpkg install fltk boost freeglut opengl
+  - if [%COMPILER%]==[vs] if [%LINKING%]==[dynamic] vcpkg install fltk boost freeglut opengl
+  - if [%COMPILER%]==[vs] if [%LINKING%]==[static] vcpkg install fltk:x86-windows-static boost:x86-windows-static freeglut:x86-windows-static opengl:x86-windows-static
   - cd ..
   - cd C:\projects\intrphysycom
 
@@ -37,5 +43,6 @@ build_script:
   - cd build
   - if [%COMPILER%]==[cygwin] cmake .. -G "Unix Makefiles"
   - if [%COMPILER%]==[cygwin] cmake --build .
-  - if [%COMPILER%]==[vs]     cmake .. -G "Visual Studio 15 2017" "-DCMAKE_TOOLCHAIN_FILE=C:\projects\vcpkg\scripts\buildsystems\vcpkg.cmake"
-  - if [%COMPILER%]==[vs]     cmake --build .
+  - if [%COMPILER%]==[vs] if [%LINKING%]==[dynamic] cmake .. -G "Visual Studio 15 2017" "-DCMAKE_TOOLCHAIN_FILE=C:\projects\vcpkg\scripts\buildsystems\vcpkg.cmake" "-DCMAKE_BUILD_TYPE=Release"
+  - if [%COMPILER%]==[vs] if [%LINKING%]==[static]  cmake .. -G "Visual Studio 15 2017" "-DCMAKE_TOOLCHAIN_FILE=C:\projects\vcpkg\scripts\buildsystems\vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=x86-windows-static" "-DCMAKE_BUILD_TYPE=Release"
+  - if [%COMPILER%]==[vs] cmake --build . --config Release
