@@ -2,7 +2,7 @@
 #include "dati.h"
 #include "Frame.h"
 
-#include <FL/FL_Box.H>
+#include <FL/Fl_Box.H>
 #include <FL/Fl_Gl_Window.H>
 #include <FL/Fl_Value_Slider.H>
 #include <FL/Fl_Window.H>
