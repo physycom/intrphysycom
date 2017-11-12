@@ -5,10 +5,64 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 set (INTERNET_DISABLED OFF CACHE BOOL "DO NOT USE INTERNET CONNECTION")
 
+
+macro(configure_link_flags)
+  # Set compiler options.
+  set(MSVC_C_CXX_FLAGS
+    CMAKE_C_FLAGS_DEBUG
+    CMAKE_C_FLAGS_MINSIZEREL
+    CMAKE_C_FLAGS_RELEASE
+    CMAKE_C_FLAGS_RELWITHDEBINFO
+    CMAKE_CXX_FLAGS_DEBUG
+    CMAKE_CXX_FLAGS_MINSIZEREL
+    CMAKE_CXX_FLAGS_RELEASE
+    CMAKE_CXX_FLAGS_RELWITHDEBINFO
+  )
+  if(${VCPKG_TARGET_TRIPLET} MATCHES "static")
+    message(STATUS
+      "VCPKG: static link"
+    )
+    foreach(flag ${MSVC_C_CXX_FLAGS})
+      if(${flag} MATCHES "/MD")
+        string(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
+      endif()
+    endforeach()
+  else()
+    message(STATUS
+      "VCPKG: dynamic link"
+    )
+    foreach(flag ${MSVC_C_CXX_FLAGS})
+      if(${flag} MATCHES "/MT")
+        string(REGEX REPLACE "/MT" "/MD" ${flag} "${${flag}}")
+      endif()
+    endforeach()
+  endif()
+endmacro()
+
+macro(print_link_flags)
+  set(MSVC_C_CXX_FLAGS
+    CMAKE_C_FLAGS_DEBUG
+    CMAKE_C_FLAGS_MINSIZEREL
+    CMAKE_C_FLAGS_RELEASE
+    CMAKE_C_FLAGS_RELWITHDEBINFO
+    CMAKE_CXX_FLAGS_DEBUG
+    CMAKE_CXX_FLAGS_MINSIZEREL
+    CMAKE_CXX_FLAGS_RELEASE
+    CMAKE_CXX_FLAGS_RELWITHDEBINFO
+  )
+  message(STATUS "Initial build flags:")
+  foreach(flag ${MSVC_C_CXX_FLAGS})
+    message(STATUS "  '${flag}': ${${flag}}")
+  endforeach()
+  message(STATUS "")
+endmacro()
+
 if(MSVC)
   add_definitions(-D_SCL_SECURE_NO_WARNINGS)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
   add_definitions(-DBOOST_NO_RVALUE_REFERENCES)
+  configure_link_flags()
+  #print_link_flags()
 endif()
 
 if (APPLE)
@@ -37,50 +91,61 @@ find_package(OpenGL REQUIRED)
 find_package(FLTK REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(GLUT REQUIRED)
-find_package(NR3)
 
-if (NOT NR3_FOUND AND NOT INTERNET_DISABLED)
+set (NR3_FOUND FALSE)
 # if not found, download from official repo and https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/ only required files
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/cmake/nr.h" AND NOT INTERNET_DISABLED)
   file(DOWNLOAD "http://numerical.recipes/codefile.php?nr3"
     ${CMAKE_SOURCE_DIR}/cmake/nr.h
     TIMEOUT 3
     STATUS download_status
   )
+  set (NRH_FOUND TRUE)
+endif()
 
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/cmake/ran.h" AND NOT INTERNET_DISABLED)
   file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/code/ran.h"
     ${CMAKE_SOURCE_DIR}/cmake/ran.h
     TIMEOUT 3
     STATUS download_status
   )
+  set (RANH_FOUND TRUE)
+endif()
 
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/cmake/realft.cpp" AND NOT INTERNET_DISABLED)
   file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/realft.cpp"
     ${CMAKE_SOURCE_DIR}/cmake/realft.cpp
     TIMEOUT 3
     STATUS download_status
   )
   execute_process(
-  COMMAND git --work-tree=. --git-dir=.git apply ${CMAKE_SOURCE_DIR}/cmake/realft.patch --ignore-whitespace --whitespace=nowarn --verbose
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  RESULT_VARIABLE error_code
+    COMMAND git --work-tree=. --git-dir=.git apply ${CMAKE_SOURCE_DIR}/cmake/realft.patch --ignore-whitespace --whitespace=nowarn --verbose
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    RESULT_VARIABLE error_code
   )
+  set (REALFTCPP_FOUND TRUE)
+endif()
 
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/cmake/four1.cpp" AND NOT INTERNET_DISABLED)
   file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/four1.cpp"
     ${CMAKE_SOURCE_DIR}/cmake/four1.cpp
     TIMEOUT 3
     STATUS download_status
   )
   execute_process(
-  COMMAND git --work-tree=. --git-dir=.git apply ${CMAKE_SOURCE_DIR}/cmake/four1.patch --ignore-whitespace --whitespace=nowarn --verbose
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  RESULT_VARIABLE error_code
+    COMMAND git --work-tree=. --git-dir=.git apply ${CMAKE_SOURCE_DIR}/cmake/four1.patch --ignore-whitespace --whitespace=nowarn --verbose
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    RESULT_VARIABLE error_code
   )
-  set(NR3_FOUND TRUE)
+  set (FOUR1CPP_FOUND TRUE)
+endif()
+
+if (NRH_FOUND AND RANH_FOUND AND REALFTCPP_FOUND AND REALFTCPP_FOUND AND FOUR1CPP_FOUND)
+set(NR3_FOUND TRUE)
 endif()
 
 set(NR3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/cmake)
-
 include_directories(${OPENGL_INCLUDE_DIRS} ${FLTK_INCLUDE_DIR} ${NR3_INCLUDE_DIR} ${GLUT_INCLUDE_DIR})
-
 
 add_executable(FrameLight
 	${CMAKE_SOURCE_DIR}/src/FrameLight/draw.cpp
