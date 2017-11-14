@@ -25,12 +25,14 @@ git clone https://github.com/physycom/intrphysycom.git
 
 NON VERRANNO ACCETTATE PULL-REQUEST CONTENENTI SOLUZIONI AGLI ESERCIZI.
 
-Buon lavoro!
+Per compilare i codici si consiglia di seguire il setup descritto a [questo link](https://github.com/physycom/sysconfig/blob/master/README.md).
 
-Per compilare il codice è sufficiente utilizzare gli script `build.sh` per chi utilizza Linux/macOS (incluso il sottosistema linux di Windows) oppure lo script `build.ps1` per chi utilizzasse invece Windows
+Soddisfatti questi prerequisiti, per compilare il codice sarà sufficiente utilizzare gli script `build.sh` per chi utilizza Linux/macOS (incluso il sottosistema linux di Windows) oppure lo script `build.ps1` per chi utilizzasse invece Windows
 
 Per aggiornare il contenuto del repository, utile per chi volesse scaricare le ultime novità, è sufficiente fare questo comando (da dentro la cartella `intrphysycom`)
 
 ```bash
 git pull
 ```
+
+Buon lavoro!
