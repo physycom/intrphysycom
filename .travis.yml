@@ -39,7 +39,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=$PWD/cmake-3.8.0-Linux-x86_64/bin:$PATH                                       ;fi
 
 script:
-  - git clone git@github.com:physycom/sysconfig.git
+  - git clone https://github.com/physycom/sysconfig.git
   - mkdir build && cd build
   - cmake .. "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=../sysconfig/cmake/physycom_toolchain.cmake"
   - cmake --build .
