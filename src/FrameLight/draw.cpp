@@ -19,7 +19,7 @@ void normale9f(float x1, float y1, float z1, float x2, float y2, float z2,
   nx = yy1 * zz2 - yy2 * zz1;
   ny = zz1 * xx2 - zz2 * xx1;
   nz = xx1 * yy2 - xx2 * yy1;
-  nn = sqrt(nx * nx + ny * ny + nz * nz);
+  nn = (float) sqrt(nx * nx + ny * ny + nz * nz);
   nx /= nn;
   ny /= nn;
   nz /= nn;

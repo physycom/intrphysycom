@@ -91,7 +91,6 @@ void Distanza() {
 //---------------------------------------------------------------------------------------
 void Stringhe_Distanze() {
   int k, kk, j, jj, id1, id2;
-  double r, dmin;
   Punto work[N_PUNTI], temp;
   Nodo n_temp;
   bool prossimo;

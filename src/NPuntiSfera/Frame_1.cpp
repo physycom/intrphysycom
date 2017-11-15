@@ -46,7 +46,7 @@ void Frame_1::draw() {
   glRotated(ruotaZ, 0, 0, 1);
   glRotated(ruotaX, 1, 0, 0);
   glRotated(ruotaY, 0, 1, 0);
-  glScalef(zoom, zoom, zoom);
+  glScalef((float)zoom, (float)zoom, (float)zoom);
   draw_scene();
   glPopMatrix();
 }

@@ -42,11 +42,11 @@ void DisegnaPunti() {
 //---------------------------------------------------------------------------------------
 void DrawTriangle(int k0, int k1, int k2) {
 
-  normale9f(x[k0], y[k0], z[k0], x[k1], y[k1], z[k1], x[k2], y[k2], z[k2]);
+  normale9f((float)x[k0], (float)y[k0], (float)z[k0], (float)x[k1], (float)y[k1], (float)z[k1], (float)x[k2], (float)y[k2], (float)z[k2]);
   glBegin(GL_TRIANGLES);
-  glVertex3f(x[k0], y[k0], z[k0]);
-  glVertex3f(x[k1], y[k1], z[k1]);
-  glVertex3f(x[k2], y[k2], z[k2]);
+  glVertex3f((float)x[k0], (float)y[k0], (float)z[k0]);
+  glVertex3f((float)x[k1], (float)y[k1], (float)z[k1]);
+  glVertex3f((float)x[k2], (float)y[k2], (float)z[k2]);
   glEnd();
 }
 //---------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ void DisegnaTriangoli() {
     k4 = nodo[k].vicino[4].k;
     k5 = nodo[k].vicino[5].k;
     k6 = nodo[k].vicino[6].k;
-    glColor3f(0.2, 1.0, 0.2);
+    glColor3f(0.2f, 1.0f, 0.2f);
     glPushMatrix();
     DrawTriangle(k0, k1, k2);
     DrawTriangle(k0, k1, k3);
