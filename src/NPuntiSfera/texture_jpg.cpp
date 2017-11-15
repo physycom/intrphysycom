@@ -3,7 +3,6 @@
 #include <FL/glu.h>
 
 #define NOME_FILE "../dati/mappa.jpg"
-using namespace std;
 
 void CreateTexture(unsigned int textureArray[], char *strFileName,
                    int textureID) {
