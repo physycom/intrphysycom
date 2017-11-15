@@ -9,13 +9,13 @@ extern void KDV();
 
 // ********************************************************************************************************
 void draw_init() {
-  float L = 0.04;
+  float L = 0.04f;
   glNewList(QUADRO, GL_COMPILE);
   glBegin(GL_QUADS);
-  glVertex3f(L, L, 0.0);
-  glVertex3f(-L, L, 0.0);
-  glVertex3f(-L, -L, 0.0);
-  glVertex3f(L, -L, 0.0);
+  glVertex3f(L, L, 0.0f);
+  glVertex3f(-L, L, 0.0f);
+  glVertex3f(-L, -L, 0.0f);
+  glVertex3f(L, -L, 0.0f);
   glEnd();
   glEndList();
 

@@ -125,7 +125,6 @@ void RK4() {
 void Leap() {
   static bool primavolta = true, uno = true;
   static VecDoub_IO u1(NDAT), d1(NDAT);
-  int i;
   if (primavolta) {
     primavolta = false;
     for (int i = 0; i < u.size(); i++)
