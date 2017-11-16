@@ -50,8 +50,6 @@ Desktop.ini
 *.config
 *.creator
 *.creator.user
-piccante.files
-piccante.includes
 *.opendb
 *.iobj
 *.ipdb
