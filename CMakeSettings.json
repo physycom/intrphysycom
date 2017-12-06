@@ -4,27 +4,6 @@
     {
       "buildCommandArgs": "-m -v:minimal",
       "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
-      "configurationType": "Debug",
-      "generator": "Visual Studio 15 2017",
-      "name": "x86-Debug",
-      "variables": [
-        {
-          "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "${env.WORKSPACE}\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
-        },
-        {
-          "name": "VCPKG_TARGET_TRIPLET",
-          "value": "x86-windows-static"
-        },
-        {
-          "name": "VCPKG_CHAINLOAD_TOOLCHAIN_FILE",
-          "value": "${env.WORKSPACE}\\sysconfig\\cmake\\physycom_toolchain.cmake"
-        }
-      ]
-    },
-    {
-      "buildCommandArgs": "-m -v:minimal",
-      "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
       "configurationType": "Release",
       "generator": "Visual Studio 15 2017",
       "name": "x86-Release",
@@ -40,6 +19,35 @@
         {
           "name": "VCPKG_CHAINLOAD_TOOLCHAIN_FILE",
           "value": "${env.WORKSPACE}\\sysconfig\\cmake\\physycom_toolchain.cmake"
+        },
+        {
+          "name": "CMAKE_BUILD_TYPE",
+          "value": "Release"
+        }
+      ]
+    },
+    {
+      "buildCommandArgs": "-m -v:minimal",
+      "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
+      "configurationType": "Debug",
+      "generator": "Visual Studio 15 2017",
+      "name": "x86-Debug",
+      "variables": [
+        {
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "${env.WORKSPACE}\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
+        },
+        {
+          "name": "VCPKG_TARGET_TRIPLET",
+          "value": "x86-windows-static"
+        },
+        {
+          "name": "VCPKG_CHAINLOAD_TOOLCHAIN_FILE",
+          "value": "${env.WORKSPACE}\\sysconfig\\cmake\\physycom_toolchain.cmake"
+        },
+        {
+          "name": "CMAKE_BUILD_TYPE",
+          "value": "Debug"
         }
       ]
     }
