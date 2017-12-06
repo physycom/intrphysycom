@@ -235,14 +235,20 @@ endif()
 
     list(APPEND FLTK_LIBRARY_SEARCH_PATH ${FLTK_INCLUDE_DIR}/lib ${_FLTK_POSSIBLE_LIBRARY_DIR})
 
-    find_library(FLTK_BASE_LIBRARY NAMES fltkd fltk
-      PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
-    find_library(FLTK_GL_LIBRARY NAMES fltkgld fltk_gld fltkgl fltk_gl
-      PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
-    find_library(FLTK_FORMS_LIBRARY NAMES fltkformsd fltk_formsd fltkforms fltk_forms
-      PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
-    find_library(FLTK_IMAGES_LIBRARY NAMES fltkimagesd fltk_imagesd fltkimages fltk_images
-      PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+    find_library(FLTK_BASE_LIBRARY_RELEASE NAMES fltk PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+    find_library(FLTK_BASE_LIBRARY_DEBUG NAMES fltkd PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+    find_library(FLTK_GL_LIBRARY_RELEASE NAMES fltkgl fltk_gl PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+    find_library(FLTK_GL_LIBRARY_DEBUG NAMES fltkgld fltk_gld PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+    find_library(FLTK_FORMS_LIBRARY_RELEASE NAMES fltkforms fltk_forms PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+    find_library(FLTK_FORMS_LIBRARY_DEBUG NAMES fltkformsd fltk_formsd PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+    find_library(FLTK_IMAGES_LIBRARY_RELEASE NAMES fltkimages fltk_images PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+    find_library(FLTK_IMAGES_LIBRARY_DEBUG NAMES fltkimagesd fltk_imagesd PATHS ${FLTK_LIBRARY_SEARCH_PATH} PATH_SUFFIXES fltk fltk/lib)
+
+    include(${CMAKE_ROOT}/Modules/SelectLibraryConfigurations.cmake)
+    select_library_configurations(FLTK_BASE)
+    select_library_configurations(FLTK_GL)
+    select_library_configurations(FLTK_FORMS)
+    select_library_configurations(FLTK_IMAGES)
 
     # Find the extra libraries needed for the fltk_images library.
     if(UNIX)
