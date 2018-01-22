@@ -69,7 +69,7 @@ set(NR3_FOUND TRUE)
 endif()
 
 set(NR3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/cmake)
-include_directories(${OPENGL_INCLUDE_DIRS} ${FLTK_INCLUDE_DIR} ${NR3_INCLUDE_DIR} ${GLUT_INCLUDE_DIR})
+include_directories(${OPENGL_INCLUDE_DIRS} ${FLTK_INCLUDE_DIR} ${NR3_INCLUDE_DIR} ${GLUT_INCLUDE_DIR} ${Boost_INCLUDE_DIR})
 
 add_executable(FrameLight
 	${CMAKE_SOURCE_DIR}/src/FrameLight/draw.cpp
