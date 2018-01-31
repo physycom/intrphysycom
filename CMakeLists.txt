@@ -1,12 +1,10 @@
 cmake_minimum_required (VERSION 3.1)
 project (intrphysycom)
-set(CMAKE_CXX_STANDARD 11)
 
-if(VCPKG_CHAINLOAD_TOOLCHAIN_FILE)
-    include("${VCPKG_CHAINLOAD_TOOLCHAIN_FILE}")
+if (EXISTS "$ENV{WORKSPACE}/sysconfig/cmake/physycom_config.cmake")
+   include("$ENV{WORKSPACE}/sysconfig/cmake/physycom_config.cmake")
 endif()
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/" ${CMAKE_MODULE_PATH})
 
 set (INTERNET_DISABLED OFF CACHE BOOL "DO NOT USE INTERNET CONNECTION")
 
@@ -252,4 +250,29 @@ if (NR3_FOUND)
 target_link_libraries(PDE_KDV               ${CMAKE_DL_LIBS} )
 target_link_libraries(Robby                 ${CMAKE_DL_LIBS} )
 endif()
+endif()
+
+install (TARGETS
+	FrameLight
+    FrameVuoto
+    NPuntiSfera
+    ODE_esponenziale
+    ODE_oscillatore
+    ODE_oscillatore_3D
+    PDE_EqCalore
+    PDE_EqLaplace_Console
+    PDE_EqLaplace_Grafica
+    PDE_EqOnde
+    PDE_Gottlieb
+    DESTINATION
+    ${CMAKE_SOURCE_DIR}/bin/
+)
+
+if (NR3_FOUND)
+install (TARGETS
+    PDE_KDV
+    Robby
+    DESTINATION
+    ${CMAKE_SOURCE_DIR}/bin/
+)
 endif()
