@@ -8,12 +8,10 @@ environment:
       COMPILER: cygwin
       CYGWIN_NOWINPATH: yes
       CYGSH: C:\cygwin64\bin\bash -c
-    - platform: Win32
+    - platform: Win64
       COMPILER: vs
-      LINKING: static
-    - platform: Win32
-      COMPILER: vs
-      LINKING: dynamic
+      VCPKG_ROOT: C:\projects\vcpkg
+      VCPKG_DEFAULT_TRIPLET: x64-windows-physycom
 
 
 install:
@@ -29,11 +27,11 @@ install:
   - if [%COMPILER%]==[cygwin] C:\projects\cygwin-setup.exe --quiet-mode --no-shortcuts --no-startmenu --no-desktop --upgrade-also --root C:\cygwin64 --local-package-dir C:\projects\cygwin-downloads --packages gcc-g++,libboost-devel,cmake,libfltk-devel,libglut-devel,libGL-devel,libGLU-devel,fluid,libjpeg-devel,libXi-devel,libXmu-devel
   - git clone https://github.com/physycom/sysconfig
   - git clone https://github.com/Microsoft/vcpkg
-  - cd C:\projects\vcpkg\
+  - copy sysconfig\cmake\%VCPKG_DEFAULT_TRIPLET%.cmake vcpkg\triplets\
+  - cd %VCPKG_ROOT%
   - if [%COMPILER%]==[vs] powershell -exec bypass scripts\bootstrap.ps1
   - if [%COMPILER%]==[vs] vcpkg integrate install
-  - if [%COMPILER%]==[vs] if [%LINKING%]==[dynamic] vcpkg install fltk boost freeglut opengl
-  - if [%COMPILER%]==[vs] if [%LINKING%]==[static] vcpkg install fltk:x86-windows-static boost:x86-windows-static freeglut:x86-windows-static opengl:x86-windows-static
+  - if [%COMPILER%]==[vs] vcpkg install fltk boost freeglut opengl
   - cd C:\projects\intrphysycom\
   - mkdir build
   - cd build
@@ -41,6 +39,5 @@ install:
 build_script:
   - if [%COMPILER%]==[cygwin] %CYGSH% 'cmake .. -G "Unix Makefiles"'
   - if [%COMPILER%]==[cygwin] %CYGSH% 'cmake --build .'
-  - if [%COMPILER%]==[vs] if [%LINKING%]==[dynamic] cmake .. -G "Visual Studio 15 2017" "-DCMAKE_TOOLCHAIN_FILE=C:\projects\vcpkg\scripts\buildsystems\vcpkg.cmake" "-DCMAKE_BUILD_TYPE=Release"
-  - if [%COMPILER%]==[vs] if [%LINKING%]==[static]  cmake .. -G "Visual Studio 15 2017" "-DCMAKE_TOOLCHAIN_FILE=C:\projects\vcpkg\scripts\buildsystems\vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=x86-windows-static" "-DCMAKE_BUILD_TYPE=Release"
+  - if [%COMPILER%]==[vs] cmake .. -G "Visual Studio 15 %PLATFORM%" "-DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake"
   - if [%COMPILER%]==[vs] cmake --build . --config Release

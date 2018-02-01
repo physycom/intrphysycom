@@ -1,10 +1,10 @@
-#!/usr/bin/env powershell
+#!/usr/bin/env pwsh
 
-mkdir -Force build
-cd build
+Remove-Item build -Force -Recurse -ErrorAction SilentlyContinue
+New-Item -Path .\build -ItemType directory -Force
+Set-Location build
 
-#FLTK are broken as of november 2017 if you use dynamic linking
-cmake -G "Visual Studio 15" "-DCMAKE_TOOLCHAIN_FILE=$env:WORKSPACE\vcpkg\scripts\buildsystems\vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=x86-windows-static" "-DCMAKE_BUILD_TYPE=Release" ..
+cmake -G "Visual Studio 15" "-DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake" "-DCMAKE_BUILD_TYPE=Release" ..
 cmake --build . --config Release --target install
 
-cd ..
+Set-Location ..
