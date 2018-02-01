@@ -35,7 +35,7 @@ before_install:
 
 install:
   - git clone https://github.com/physycom/sysconfig.git
-  - export WORKSPACE=$(pwd)/..
+  - export WORKSPACE=$(pwd)
   - mkdir build && cd build
 
 script:
