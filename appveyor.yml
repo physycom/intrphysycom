@@ -15,7 +15,7 @@ environment:
 
 
 install:
-  - if [%COMPILER%]==[vs] cinst cmake
+  - if [%COMPILER%]==[vs] cinst cmake ninja
   - if [%COMPILER%]==[vs] SET "PATH=C:\Program Files\CMake\bin;%PATH%"
   - if [%COMPILER%]==[vs] call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
   - if [%COMPILER%]==[cygwin] SET "PATH=C:\cygwin64\bin;C:\cygwin64\usr\bin;%PATH%"
@@ -30,7 +30,7 @@ install:
   - if [%COMPILER%]==[vs] git clone https://github.com/Microsoft/vcpkg
   - if [%COMPILER%]==[vs] copy %WORKSPACE%\sysconfig\cmake\%VCPKG_DEFAULT_TRIPLET%.cmake %WORKSPACE%\vcpkg\triplets\
   - if [%COMPILER%]==[vs] cd %VCPKG_ROOT%
-  - if [%COMPILER%]==[vs] powershell -exec bypass scripts\bootstrap.ps1
+  - if [%COMPILER%]==[vs] bootstrap-vcpkg.bat
   - if [%COMPILER%]==[vs] vcpkg integrate install
   - if [%COMPILER%]==[vs] vcpkg install fltk boost freeglut opengl
   - cd %WORKSPACE%\intrphysycom\
@@ -40,5 +40,5 @@ install:
 build_script:
   - if [%COMPILER%]==[cygwin] %CYGSH% 'cmake .. -G "Unix Makefiles"'
   - if [%COMPILER%]==[cygwin] %CYGSH% 'cmake --build .'
-  - if [%COMPILER%]==[vs] cmake .. -G "Visual Studio 15 2017 Win64" "-DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake"
+  - if [%COMPILER%]==[vs] cmake .. -G "Visual Studio 15 2017 Win64" "-DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=%VCPKG_DEFAULT_TRIPLET%"
   - if [%COMPILER%]==[vs] cmake --build . --config Release
