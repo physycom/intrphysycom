@@ -66,5 +66,5 @@ bld/
 [Bb]in/
 [Oo]bj/
 
-cmake/*.h
-cmake/*.cpp
+patch/*.h
+patch/*.cpp

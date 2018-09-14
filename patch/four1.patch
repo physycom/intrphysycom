@@ -1,5 +1,5 @@
---- a/cmake/four1.cpp
-+++ b/cmake/four1.cpp
+--- a/patch/four1.cpp
++++ b/patch/four1.cpp
 @@ -2,7 +2,9 @@
  #include "nr.h"
  using namespace std;

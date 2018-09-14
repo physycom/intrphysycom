@@ -1,5 +1,5 @@
---- a/cmake/realft.cpp
-+++ b/cmake/realft.cpp
+--- a/patch/realft.cpp
++++ b/patch/realft.cpp
 @@ -2,7 +2,10 @@
  #include "nr.h"
  using namespace std;
