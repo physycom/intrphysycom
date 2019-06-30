@@ -18,9 +18,10 @@ find_package(JPEG REQUIRED)
 find_package(GLUT REQUIRED)
 
 set (NR3_FOUND FALSE)
-# if not found, download from official repo and https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/ only required files
+# if not found, download from http://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/InClassExamples/NR3/ only required files
+
 if (NOT EXISTS "${CMAKE_SOURCE_DIR}/patch/nr.h" AND NOT INTERNET_DISABLED)
-  file(DOWNLOAD "http://numerical.recipes/codefile.php?nr3"
+  file(DOWNLOAD "http://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/InClassExamples/NR3/code/nr3.h"
     ${CMAKE_SOURCE_DIR}/patch/nr.h
     TIMEOUT 3
     STATUS download_status
@@ -29,7 +30,7 @@ if (NOT EXISTS "${CMAKE_SOURCE_DIR}/patch/nr.h" AND NOT INTERNET_DISABLED)
 endif()
 
 if (NOT EXISTS "${CMAKE_SOURCE_DIR}/patch/ran.h" AND NOT INTERNET_DISABLED)
-  file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/code/ran.h"
+  file(DOWNLOAD "http://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/InClassExamples/NR3/code/ran.h"
     ${CMAKE_SOURCE_DIR}/patch/ran.h
     TIMEOUT 3
     STATUS download_status
@@ -38,7 +39,7 @@ if (NOT EXISTS "${CMAKE_SOURCE_DIR}/patch/ran.h" AND NOT INTERNET_DISABLED)
 endif()
 
 if (NOT EXISTS "${CMAKE_SOURCE_DIR}/patch/realft.cpp" AND NOT INTERNET_DISABLED)
-  file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/realft.cpp"
+  file(DOWNLOAD "http://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/InClassExamples/NR3/legacy/nr2/CPP_211/recipes/realft.cpp"
     ${CMAKE_SOURCE_DIR}/patch/realft.cpp
     TIMEOUT 3
     STATUS download_status
@@ -52,7 +53,7 @@ if (NOT EXISTS "${CMAKE_SOURCE_DIR}/patch/realft.cpp" AND NOT INTERNET_DISABLED)
 endif()
 
 if (NOT EXISTS "${CMAKE_SOURCE_DIR}/patch/four1.cpp" AND NOT INTERNET_DISABLED)
-  file(DOWNLOAD "https://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/NR3/legacy/nr2/CPP_211/recipes/four1.cpp"
+  file(DOWNLOAD "http://www.astro.umd.edu/~ricotti/NEWWEB/teaching/ASTR415/InClassExamples/NR3/legacy/nr2/CPP_211/recipes/four1.cpp"
     ${CMAKE_SOURCE_DIR}/patch/four1.cpp
     TIMEOUT 3
     STATUS download_status
