@@ -20,6 +20,7 @@ addons:
     - libjpeg-dev
     - libxi-dev
     - libxmu-dev
+    - fluid
 
 matrix:
     exclude:
