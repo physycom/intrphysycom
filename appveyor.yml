@@ -25,14 +25,14 @@ install:
   - cd %WORKSPACE%\
   - mkdir cygwin-downloads
   - ps: if($env:COMPILER -eq "cygwin") { Invoke-WebRequest https://cygwin.com/setup-x86_64.exe -OutFile $env:WORKSPACE\cygwin-setup.exe }
-  - if [%COMPILER%]==[cygwin] %WORKSPACE%\cygwin-setup.exe --quiet-mode --no-shortcuts --no-startmenu --no-desktop --upgrade-also --root C:\cygwin64 --local-package-dir %WORKSPACE%\cygwin-downloads --packages gcc-g++,libboost-devel,cmake,libfltk-devel,libglut-devel,libGL-devel,libGLU-devel,fluid,libjpeg-devel,libXi-devel,libXmu-devel
+  - if [%COMPILER%]==[cygwin] %WORKSPACE%\cygwin-setup.exe --quiet-mode --no-shortcuts --no-startmenu --no-desktop --upgrade-also --root C:\cygwin64 --local-package-dir %WORKSPACE%\cygwin-downloads --packages gcc-g++,libboost-devel,cmake,libfltk-devel,libglut-devel,libGL-devel,libGLU-devel,fluid,libjpeg-devel,libXi-devel,libXmu-devel,libEGL-devel
   - git clone https://github.com/physycom/sysconfig
   - if [%COMPILER%]==[vs] git clone https://github.com/Microsoft/vcpkg
   - if [%COMPILER%]==[vs] copy %WORKSPACE%\sysconfig\cmake\%VCPKG_DEFAULT_TRIPLET%.cmake %WORKSPACE%\vcpkg\triplets\
   - if [%COMPILER%]==[vs] cd %VCPKG_ROOT%
   - if [%COMPILER%]==[vs] bootstrap-vcpkg.bat
   - if [%COMPILER%]==[vs] vcpkg integrate install
-  - if [%COMPILER%]==[vs] vcpkg install fltk boost freeglut opengl
+  - if [%COMPILER%]==[vs] vcpkg install fltk boost freeglut opengl --recurse
   - cd %WORKSPACE%\intrphysycom\
   - mkdir build
   - cd build
